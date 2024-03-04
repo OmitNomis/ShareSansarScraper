@@ -1,0 +1,32 @@
+name: Run Spider
+
+on:
+  schedule:
+    - cron: '15 11 * * *'  # Run the job every day at 11:15 AM UTC => 5:00 Nepal Time
+
+jobs:
+  run_spider:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run spider
+        run: scrapy crawl market
+
+      - name: Commit and Push Files
+        run: |
+            git config user.email "mail@pranilshrestha.com.np"
+            git config user.name "${{secrets.GLOBAL_USER_NAME}}"
+            git add .
+            git commit -am "Share data has been successfully scrapped"
+            git push origin main
