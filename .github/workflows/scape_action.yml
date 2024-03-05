@@ -2,7 +2,7 @@ name: Run Spider
 
 on:
   schedule:
-    - cron: '30 13 * * *'  # Run the job every day at 11:15 AM UTC => 5:00 Nepal Time
+    - cron: '15 14 * * *'  # Run the job every day at 11:15 AM UTC => 5:00 Nepal Time
 
 jobs:
   run_spider:
@@ -29,8 +29,6 @@ jobs:
 
       - name: Commit and Push Files
         run: |
-            git config user.email "${{secrets.GLOBAL_USER_EMAIL}}"
-            git config user.name "${{secrets.GLOBAL_USER_NAME}}"
             git add .
             git commit -am "Share data has been successfully scrapped"
             git push origin master
