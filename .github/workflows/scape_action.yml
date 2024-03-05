@@ -29,7 +29,7 @@ jobs:
 
       - name: Commit and Push Files
         run: |
-            git config user.email "mail@pranilshrestha.com.np"
+            git config user.email "${{secrets.GLOBAL_USER_EMAIL}}"
             git config user.name "${{secrets.GLOBAL_USER_NAME}}"
             git add .
             git commit -am "Share data has been successfully scrapped"
