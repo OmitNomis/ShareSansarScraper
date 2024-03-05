@@ -33,4 +33,4 @@ jobs:
             git config user.name "${{secrets.GLOBAL_USER_NAME}}"
             git add .
             git commit -am "Share data has been successfully scrapped"
-            git push origin main
+            git push origin master
