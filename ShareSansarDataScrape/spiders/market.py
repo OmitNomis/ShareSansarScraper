@@ -42,4 +42,4 @@ class TableSpider(scrapy.Spider):
         file_path = f'Data/{date_str}.csv'
 
         # Converting the DataFrame into a CSV file
-        df.to_csv(file_path, index=False)
+        df.to_csv(file_path, header=False, index=False)
