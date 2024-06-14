@@ -1,6 +1,7 @@
 import scrapy
 import pandas as pd
 from datetime import datetime
+import os
 
 class TableSpider(scrapy.Spider):
     name = 'market'
@@ -37,9 +38,27 @@ class TableSpider(scrapy.Spider):
         # Converting the table_data list into a DataFrame
         df = pd.DataFrame(table_data)
 
+        # Generating the filename based on the current date
         date_str = datetime.now().strftime('%Y_%m_%d')
-
         file_path = f'Data/{date_str}.csv'
 
-        # Converting the DataFrame into a CSV file
+        # Saving the DataFrame to a CSV file
         df.to_csv(file_path, header=False, index=False)
+
+        # combine all csv to single excel with worksheets
+        self.update_combined_excel()
+
+    def update_combined_excel(self):
+        csv_files = [file for file in os.listdir('Data') if file.endswith('.csv')]
+
+        # sort so that latest csv is the first worksheet
+        csv_files.sort(reverse=True)
+
+        with pd.ExcelWriter('Data/combined_excel.xlsx', engine='openpyxl') as writer:
+            for csv_file in csv_files:
+
+                df = pd.read_csv(f'Data/{csv_file}')
+                sheet_name = os.path.splitext(csv_file)[0]
+                df.to_excel(writer, sheet_name=sheet_name, index=False)
+
+        print("Excel file generated with csv as worksheets")

@@ -5,10 +5,11 @@ This project automates the scraping of data from the website `https://www.shares
 **Setup:**
 
 1. **Installation:**
+
    - Ensure you have Python installed on your system.
    - Install Scrapy and Pandas libraries if not already installed:
      ```
-     pip install scrapy pandas
+     pip install scrapy pandas openpyxl
      ```
 
 2. **Code Configuration:**
@@ -28,4 +29,3 @@ This project automates the scraping of data from the website `https://www.shares
 - The scraped data is stored in a CSV file with the naming convention `YYYY_MM_DD.csv` in the `Data` directory within your project.
 - The script utilizes the `datetime.now()` function to generate the current date in the format specified.
 - The scraping process is automated through a GitHub workflow, but details for setting up the workflow are not provided here.
-  
