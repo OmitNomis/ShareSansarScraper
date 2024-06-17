@@ -18,8 +18,9 @@ function toggleCSVList() {
 function downloadAllCSVs() {
   const downloadButton = document.getElementById("download-csvs-btn");
   downloadButton.disabled = true;
+  downloadButton.classList.add("disabled");
 
-  fetch("Data/list_of_csv_files.txt") // Assuming a text file with list of CSV files
+  fetch("Data/list_of_csv_files.txt")
     .then((response) => response.text())
     .then((csvList) => {
       const csvFiles = csvList.trim().split("\n");
@@ -36,16 +37,19 @@ function downloadAllCSVs() {
         .generateAsync({ type: "blob" })
         .then((content) => {
           saveAs(content, "all_csv_files.zip");
-          downloadButton.disabled = false; // Enable the button after download
+          downloadButton.disabled = false;
+          downloadButton.classList.remove("disabled");
         })
         .catch((error) => {
           console.error("Error generating ZIP file:", error);
-          downloadButton.disabled = false; // Enable the button if there's an error
+          downloadButton.disabled = false;
+          downloadButton.classList.remove("disabled");
         });
     })
     .catch((error) => {
       console.error("Error fetching CSVs list:", error);
-      downloadButton.disabled = false; // Enable the button if there's an error
+      downloadButton.disabled = false;
+      downloadButton.classList.remove("disabled");
     });
 }
 
