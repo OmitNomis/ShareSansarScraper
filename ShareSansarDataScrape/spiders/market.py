@@ -42,7 +42,7 @@ class TableSpider(scrapy.Spider):
 
         # Generating the filename based on the current date
         date_str = datetime.now().strftime('%Y_%m_%d')
-        file_path = f'Data/{date_str}.csv'
+        file_path = f'docs/Data/{date_str}.csv'
 
         # Saving the DataFrame to a CSV file
         df.to_csv(file_path, header=False, index=False)
@@ -51,12 +51,12 @@ class TableSpider(scrapy.Spider):
         self.update_combined_excel()
 
     def update_combined_excel(self):
-        csv_files = [file for file in os.listdir('Data') if file.endswith('.csv')]
+        csv_files = [file for file in os.listdir('docs/Data') if file.endswith('.csv')]
 
         # sort so that latest csv is the first worksheet
         csv_files.sort(reverse=True)
 
-        excel_file_path = 'Data/combined_excel.xlsx'
+        excel_file_path = 'docs/Data/combined_excel.xlsx'
 
         if os.path.exists(excel_file_path): 
             # if the file exists, append only the latest csv to the workbook.
@@ -70,7 +70,7 @@ class TableSpider(scrapy.Spider):
                     workbook.remove(workbook[sheet_to_add])
                 
                 # create worksheet 
-                df = pd.read_csv(f'Data/{sheet_to_add}')
+                df = pd.read_csv(f'docs/Data/{sheet_to_add}')
                 new_sheet = workbook.create_sheet(title= sheet_to_add, index=0)
                 
                 # append data to the worksheet and save the xlsx
@@ -87,7 +87,7 @@ class TableSpider(scrapy.Spider):
             with pd.ExcelWriter(excel_file_path, engine='openpyxl') as writer:
                 for csv_file in csv_files:
 
-                    df = pd.read_csv(f'Data/{csv_file}')
+                    df = pd.read_csv(f'docs/Data/{csv_file}')
                     sheet_name = os.path.splitext(csv_file)[0]
                     df.to_excel(writer, sheet_name=sheet_name, index=False)
         
