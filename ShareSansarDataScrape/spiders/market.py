@@ -2,6 +2,8 @@ import scrapy
 import pandas as pd
 from datetime import datetime
 import os
+from openpyxl import load_workbook
+
 
 class TableSpider(scrapy.Spider):
     name = 'market'
@@ -54,11 +56,38 @@ class TableSpider(scrapy.Spider):
         # sort so that latest csv is the first worksheet
         csv_files.sort(reverse=True)
 
-        with pd.ExcelWriter('Data/combined_excel.xlsx', engine='openpyxl') as writer:
-            for csv_file in csv_files:
+        excel_file_path = 'Data/combined_excel.xlsx'
 
-                df = pd.read_csv(f'Data/{csv_file}')
-                sheet_name = os.path.splitext(csv_file)[0]
-                df.to_excel(writer, sheet_name=sheet_name, index=False)
+        if os.path.exists(excel_file_path): 
+            # if the file exists, append only the latest csv to the workbook.
+            try:
+                workbook = load_workbook(excel_file_path)
+                sheet_to_add = csv_files[0]
+                sheetNames = workbook.sheetnames
 
-        print("Excel file generated with csv as worksheets")
+                if (sheet_to_add in sheetNames):
+                    # deleting the worksheet if it already exists to replace data
+                    workbook.remove(workbook[sheet_to_add])
+                
+                # create worksheet 
+                df = pd.read_csv(f'Data/{sheet_to_add}')
+                new_sheet = workbook.create_sheet(title= sheet_to_add, index=0)
+                
+                # append data to the worksheet and save the xlsx
+                for row_index, row in df.iterrows():
+                    for col_index, value in enumerate(row, start=1):
+                        new_sheet.cell(row=row_index + 1, column=col_index, value=value)
+                workbook.save(excel_file_path)
+
+            except Exception as e:
+                print(f"Error: {e}")
+
+        else: 
+            # if file doesn't already exist, take all csv and write new excel file.
+            with pd.ExcelWriter(excel_file_path, engine='openpyxl') as writer:
+                for csv_file in csv_files:
+
+                    df = pd.read_csv(f'Data/{csv_file}')
+                    sheet_name = os.path.splitext(csv_file)[0]
+                    df.to_excel(writer, sheet_name=sheet_name, index=False)
+        
