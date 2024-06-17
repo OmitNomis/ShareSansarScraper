@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Downloads for ShareSansar Data Scraper</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Download Links</h1>
+
+      <div class="update-info">
+        <h2>Last Updated:</h2>
+        <p id="last-updated-date">Loading...</p>
+      </div>
+
+      <div class="download-section">
+        <h2>Download Links:</h2>
+        <a href="Data/combined_excel.xlsx" download class="btn"
+          >Download Excel with all data</a
+        >
+        <button class="btn" onclick="downloadAllCSVs()">
+          Download All CSVs as ZIP
+        </button>
+      </div>
+
+      <div class="csv-list-section">
+        <p>
+          If you want data from particular days, click the button below to
+          reveal a list of all CSV files
+        </p>
+        <button class="accordion-btn" onclick="toggleCSVList()">
+          Show All CSVs
+        </button>
+        <div id="csv-list-container" style="display: none">
+          <ul id="csv-files-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        Made with <span class="heart">♥️</span> by
+        <a href="https://github.com/OmitNomis" target="_blank">OmitNomis</a>
+      </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
