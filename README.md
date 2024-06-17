@@ -2,6 +2,10 @@
 
 This project automates the scraping of data from the website `https://www.sharesansar.com/today-share-price` using Scrapy, a web crawling and scraping framework for Python. The scraped data is then saved into a CSV file. The CSV files are also combined to generate an excel file that updates everyday adding a worksheet with the current day's data.
 
+**Note:** If you're interested in accessing the data directly without running any code, you can download all the CSV or the latest combined Excel file [here](https://OmitNomis.github.io/ShareSansarScraper).
+
+---
+
 ## **Setup:**
 
 ### - Ensure you have Python installed on your system:
