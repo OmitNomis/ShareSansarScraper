@@ -65,6 +65,13 @@ p {
   color: inherit;
 }
 
+.btn[disabled] {
+  background-color: #ddd;
+  color: #666;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .accordion-btn {
   background-color: #007bff;
   color: white;
