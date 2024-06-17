@@ -57,23 +57,25 @@ class TableSpider(scrapy.Spider):
         csv_files.sort(reverse=True)
 
         excel_file_path = 'docs/Data/combined_excel.xlsx'
+        txt_file_path = 'docs/Data/list_of_csv_files.txt'
+
 
         if os.path.exists(excel_file_path): 
-            # if the file exists, append only the latest csv to the workbook.
+            # If the file exists, append only the latest csv to the workbook.
             try:
                 workbook = load_workbook(excel_file_path)
                 sheet_to_add = csv_files[0]
                 sheetNames = workbook.sheetnames
 
-                if (sheet_to_add in sheetNames):
-                    # deleting the worksheet if it already exists to replace data
+                if sheet_to_add in sheetNames:
+                    # Deleting the worksheet if it already exists to replace data
                     workbook.remove(workbook[sheet_to_add])
                 
-                # create worksheet 
-                df = pd.read_csv(f'docs/Data/{sheet_to_add}')
-                new_sheet = workbook.create_sheet(title= sheet_to_add, index=0)
+                # Create worksheet 
+                df = pd.read_csv(f'Data/{sheet_to_add}')
+                new_sheet = workbook.create_sheet(title=sheet_to_add, index=0)
                 
-                # append data to the worksheet and save the xlsx
+                # Append data to the worksheet and save the xlsx
                 for row_index, row in df.iterrows():
                     for col_index, value in enumerate(row, start=1):
                         new_sheet.cell(row=row_index + 1, column=col_index, value=value)
@@ -83,11 +85,21 @@ class TableSpider(scrapy.Spider):
                 print(f"Error: {e}")
 
         else: 
-            # if file doesn't already exist, take all csv and write new excel file.
-            with pd.ExcelWriter(excel_file_path, engine='openpyxl') as writer:
+            # If file doesn't already exist, take all csv and write new excel file.
+            with pd.ExcelWriter('Data/combined_excel.xlsx', engine='openpyxl') as writer:
                 for csv_file in csv_files:
-
-                    df = pd.read_csv(f'docs/Data/{csv_file}')
+                    df = pd.read_csv(f'Data/{csv_file}')
                     sheet_name = os.path.splitext(csv_file)[0]
                     df.to_excel(writer, sheet_name=sheet_name, index=False)
-        
+
+        # Update or create the list_of_csv_files.txt
+        if os.path.exists(txt_file_path):
+            with open(txt_file_path, 'r+') as file:
+                existing_files = file.read().splitlines()
+                for csv_file in csv_files:
+                    if csv_file not in existing_files:
+                        file.write(csv_file + '\n')
+        else:
+            with open(txt_file_path, 'w') as file:
+                for csv_file in csv_files:
+                    file.write(csv_file + '\n')
