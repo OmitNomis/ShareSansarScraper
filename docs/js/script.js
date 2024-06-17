@@ -29,10 +29,14 @@ function downloadAllCSVs() {
 
 function toggleCSVList() {
   const container = document.getElementById("csv-list-container");
+  const button = document.getElementById("toggle-csv-btn");
+
   if (container.style.display === "none") {
     container.style.display = "block";
+    button.textContent = "Hide CSVs";
   } else {
     container.style.display = "none";
+    button.textContent = "Show All CSVs";
   }
 }
 
