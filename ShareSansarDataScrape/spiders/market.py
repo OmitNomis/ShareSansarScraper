@@ -113,13 +113,6 @@ class TableSpider(scrapy.Spider):
                     df.to_excel(writer, sheet_name=sheet_name, index=False)
 
         # Update or create the list_of_csv_files.txt
-        if os.path.exists(txt_file_path):
-            with open(txt_file_path, 'r+') as file:
-                existing_files = file.read().splitlines()
-                for csv_file in csv_files:
-                    if csv_file not in existing_files:
-                        file.write(csv_file + '\n')
-        else:
-            with open(txt_file_path, 'w') as file:
-                for csv_file in csv_files:
-                    file.write(csv_file + '\n')
+        with open(txt_file_path, 'w') as file:
+            for csv_file in csv_files:
+                file.write(csv_file + '\n')
