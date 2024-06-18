@@ -65,15 +65,16 @@ class TableSpider(scrapy.Spider):
             try:
                 workbook = load_workbook(excel_file_path)
                 sheet_to_add = csv_files[0]
+                sheet_to_add_name = csv_files[0].replace('.csv', '')
                 sheetNames = workbook.sheetnames
 
-                if sheet_to_add in sheetNames:
+                if sheet_to_add_name in sheetNames:
                     # Deleting the worksheet if it already exists to replace data
-                    workbook.remove(workbook[sheet_to_add])
+                    workbook.remove(workbook[sheet_to_add_name])
                 
                 # Create worksheet 
-                df = pd.read_csv(f'Data/{sheet_to_add}')
-                new_sheet = workbook.create_sheet(title=sheet_to_add, index=0)
+                df = pd.read_csv(f'docs/Data/{sheet_to_add}')
+                new_sheet = workbook.create_sheet(title=sheet_to_add_name, index=0)
                 
                 # Append data to the worksheet and save the xlsx
                 for row_index, row in df.iterrows():
@@ -86,9 +87,9 @@ class TableSpider(scrapy.Spider):
 
         else: 
             # If file doesn't already exist, take all csv and write new excel file.
-            with pd.ExcelWriter('Data/combined_excel.xlsx', engine='openpyxl') as writer:
+            with pd.ExcelWriter(excel_file_path, engine='openpyxl') as writer:
                 for csv_file in csv_files:
-                    df = pd.read_csv(f'Data/{csv_file}')
+                    df = pd.read_csv(f'docs/Data/{csv_file}')
                     sheet_name = os.path.splitext(csv_file)[0]
                     df.to_excel(writer, sheet_name=sheet_name, index=False)
 
