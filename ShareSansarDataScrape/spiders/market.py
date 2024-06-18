@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime
 import os
 from openpyxl import load_workbook
+from openpyxl.styles import Font, Border, Side, Alignment
 
 
 class TableSpider(scrapy.Spider):
@@ -72,14 +73,32 @@ class TableSpider(scrapy.Spider):
                     # Deleting the worksheet if it already exists to replace data
                     workbook.remove(workbook[sheet_to_add_name])
                 
-                # Create worksheet 
                 df = pd.read_csv(f'docs/Data/{sheet_to_add}')
                 new_sheet = workbook.create_sheet(title=sheet_to_add_name, index=0)
                 
-                # Append data to the worksheet and save the xlsx
+
+                for col_index, header in enumerate(df.columns, start=1):
+                    new_sheet.cell(row=1, column=col_index, value=header)
+
+                for col_index in range(1, len(df.columns) + 1):
+                    cell = new_sheet.cell(row=1, column=col_index)
+                    cell.font = Font(bold=True)
+                    cell.alignment = Alignment(horizontal='center') 
+
+
+                border_style = Border(left=Side(style='thin'),
+                        right=Side(style='thin'),
+                        top=Side(style='medium'), 
+                        bottom=Side(style='thin')) 
+
+                for col_index in range(1, len(df.columns) + 1):
+                    cell = new_sheet.cell(row=1, column=col_index)
+                    cell.border = border_style
+                
                 for row_index, row in df.iterrows():
                     for col_index, value in enumerate(row, start=1):
-                        new_sheet.cell(row=row_index + 1, column=col_index, value=value)
+                        new_sheet.cell(row=row_index + 2, column=col_index, value=value)
+        
                 workbook.save(excel_file_path)
 
             except Exception as e:
