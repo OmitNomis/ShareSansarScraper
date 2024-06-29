@@ -1,54 +1,94 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Downloads for ShareSansar Data Scraper</title>
+    <title>Downloads for ShareSansar Data Scraper | NEPSE Data Downloads</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <meta
+      name="google-site-verification"
+      content="9uWYUj0gxeUU0oRhubh2lKCScxEGV5jb9SJQpZV6Bss" />
+    <meta
+      name="description"
+      content="Download the latest scraped NEPSE data from ShareSansar. Get up-to-date Nepal Stock Exchange data in Excel and CSV formats. Regularly updated for accuracy and completeness. Ideal for financial analysis, stock market tracking, and investment decisions." />
+    <meta
+      name="keywords"
+      content="NEPSE data, ShareSansar scraper, NEPSE downloads, financial data NEPSE, Excel NEPSE data, CSV NEPSE data, Nepal Stock Exchange data, NEPSE stock data, NEPSE market analysis, NEPSE investment data, download NEPSE data, NEPSE historical data" />
   </head>
   <body>
     <div class="container">
-      <h1>Download Links</h1>
-
-      <div class="update-info">
-        <h2>Last Updated:</h2>
-        <p id="last-updated-date">Loading...</p>
-      </div>
-
-      <div class="download-section">
-        <h2>Download Links:</h2>
-        <a href="Data/combined_excel.xlsx" download class="btn"
-          >Download Excel with all data</a
-        >
-        <button id="download-csvs-btn" class="btn" onclick="downloadAllCSVs()">
-          Download All CSVs as ZIP
-        </button>
-      </div>
-
-      <div class="csv-list-section">
+      <header>
+        <h1>ShareSansar Data Downloads</h1>
         <p>
-          If you want data from particular days, click the button below to
-          reveal a list of all CSV files
+          Get the latest NEPSE data for your financial analysis, investment
+          decisions, and market tracking.
         </p>
-        <button
-          id="toggle-csv-btn"
-          class="accordion-btn"
-          onclick="toggleCSVList()"
-        >
-          Show All CSVs
-        </button>
-        <div id="csv-list-container" style="display: none">
-          <ul id="csv-files-list"></ul>
-        </div>
-      </div>
-    </div>
+      </header>
 
-    <footer>
-      <p>
-        Made with <span class="heart">♥️</span> by
-        <a href="https://github.com/OmitNomis" target="_blank">OmitNomis</a>
-      </p>
-    </footer>
+      <main>
+        <section class="update-info">
+          <h2>Last Updated:</h2>
+          <p id="last-updated-date">Loading...</p>
+        </section>
+        <section class="download-section">
+          <h2>Available Downloads</h2>
+          <p>
+            Download the latest scraped NEPSE data in various formats. Choose
+            from a combined Excel file or individual CSV files for specific
+            days.
+          </p>
+          <a href="Data/combined_excel.xlsx" download class="btn"
+            >Download Excel with All Data</a
+          >
+          <button
+            id="download-csvs-btn"
+            class="btn"
+            onclick="downloadAllCSVs()">
+            Download All CSVs as ZIP
+          </button>
+        </section>
+
+        <section class="csv-list-section">
+          <h2>CSV Files by Date</h2>
+          <p>
+            If you prefer data from specific days, click the button below to
+            reveal a list of all available CSV files.
+          </p>
+          <button
+            id="toggle-csv-btn"
+            class="accordion-btn"
+            onclick="toggleCSVList()">
+            Hide All CSVs
+          </button>
+          <div id="csv-list-container" class="scrollable">
+            <ul id="csv-files-list"></ul>
+          </div>
+        </section>
+        <section class="about">
+          <h2>About ShareSansar Data</h2>
+          <p>
+            ShareSansar Data offers comprehensive and meticulously curated
+            financial data extracted directly from the Nepal Stock Exchange
+            (NEPSE). Our cutting-edge scraping technology ensures the timely
+            retrieval of up-to-date NEPSE data, including stock prices, trading
+            volumes, market trends, historical performance, and dividend yields.
+            Whether you're a seasoned financial analyst, an avid investor, or a
+            business professional seeking valuable insights into Nepal's stock
+            market, ShareSansar Data provides the essential tools and resources
+            for informed decision-making and strategic planning. Stay ahead in
+            the dynamic world of finance with ShareSansar Data, your trusted
+            source for reliable NEPSE data downloads.
+          </p>
+        </section>
+      </main>
+
+      <footer>
+        <p>
+          Made with <span class="heart">♥️</span> by
+          <a href="https://github.com/OmitNomis" target="_blank">OmitNomis</a>
+        </p>
+      </footer>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>

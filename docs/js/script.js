@@ -33,7 +33,7 @@ function downloadAllCSVs() {
       csvFiles.forEach((csvFile) => {
         zip.file(
           csvFile.trim(),
-          fetch(`Data/${csvFile.trim()}`).then((response) => response.blob()),
+          fetch(`Data/${csvFile.trim()}`).then((response) => response.blob())
         );
       });
 
