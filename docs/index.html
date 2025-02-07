@@ -3,93 +3,204 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Downloads for ShareSansar Data Scraper | NEPSE Data Downloads</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <title>
+      Download NEPSE Data (ShareSansar) - Daily & Historical CSV/Excel
+    </title>
     <meta
       name="description"
-      content="Download the latest scraped NEPSE data from
-    ShareSansar. Get up-to-date Nepal Stock Exchange data in Excel and CSV
-    formats. Regularly updated for accuracy and completeness. Ideal for
-    financial analysis, stock market tracking, and investment decisions." />
+      content="Download daily and historical Nepal Stock Exchange (NEPSE) data scraped from ShareSansar. Available in Excel (XLSX) and CSV formats. Updated regularly. Preview CSV data directly in your browser." />
     <meta
       name="keywords"
-      content="NEPSE data, ShareSansar scraper, NEPSE downloads, financial data NEPSE, Excel NEPSE data, CSV NEPSE data, Nepal Stock Exchange data, NEPSE stock data, NEPSE market analysis, NEPSE investment data, download NEPSE data, NEPSE historical data" />
+      content="NEPSE, ShareSansar, Nepal Stock Exchange, stock data, NEPSE data download, historical data, CSV, Excel, XLSX, financial data, Nepal, stock market, analysis, investment, data preview" />
+    <meta
+      name="google-site-verification"
+      content="UVxCmdTkxjgmviaReOrUTCv8tFpg3h9ucUGk_A8IDYA" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet" />
+
+    <!-- Icons (Material Symbols Outlined - from Google Fonts) -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
+
   <body>
     <div class="container">
       <header>
-        <h1>ShareSansar Data Downloads</h1>
+        <h1>
+          <span class="material-symbols-outlined"> download </span> ShareSansar
+          NEPSE Data Downloads
+        </h1>
         <p>
-          Get the latest NEPSE data for your financial analysis, investment
-          decisions, and market tracking.
+          Access daily and historical Nepal Stock Exchange data for your
+          financial analysis. Preview, filter, and download.
         </p>
       </header>
 
       <main>
-        <section class="update-info">
-          <h2>Last Updated:</h2>
+        <section class="update-info" aria-labelledby="last-updated-heading">
+          <h2 id="last-updated-heading">
+            <span class="material-symbols-outlined"> calendar_month </span> Last
+            Updated
+          </h2>
           <p id="last-updated-date">Loading...</p>
         </section>
-        <section class="download-section">
-          <h2>Available Downloads</h2>
-          <p>
-            Download the latest scraped NEPSE data in various formats. Choose
-            from a combined Excel file or individual CSV files for specific
-            days.
-          </p>
-          <a href="Data/combined_excel.xlsx" download class="btn"
-            >Download Excel with All Data</a
-          >
-          <button
-            id="download-csvs-btn"
-            class="btn"
-            onclick="downloadAllCSVs()">
-            Download All CSVs as ZIP
-          </button>
+
+        <section class="download-section" aria-labelledby="download-heading">
+          <h2 id="download-heading">
+            <span class="material-symbols-outlined"> file_download </span>
+            Available Downloads
+          </h2>
+          <p>Download the latest NEPSE data in Excel or CSV format.</p>
+          <div class="button-group">
+            <a
+              href="Data/combined_excel.xlsx"
+              download
+              class="btn btn-primary"
+              role="button">
+              <span class="material-symbols-outlined"> download </span>
+              Download Excel (All Data)
+            </a>
+            <button
+              id="download-csvs-btn"
+              class="btn btn-primary"
+              aria-label="Download all CSV files as ZIP">
+              <span class="material-symbols-outlined"> folder_zip </span>
+              Download All CSVs (ZIP)
+            </button>
+            <span id="download-progress" class="visually-hidden"
+              >Downloading...
+              <span class="material-symbols-outlined">
+                hourglass_empty
+              </span></span
+            >
+          </div>
         </section>
 
-        <section class="csv-list-section">
-          <h2>CSV Files by Date</h2>
+        <section class="csv-list-section" aria-labelledby="csv-list-heading">
+          <h2 id="csv-list-heading">
+            <span class="material-symbols-outlined"> table_chart </span> CSV
+            Files by Date
+          </h2>
           <p>
-            If you prefer data from specific days, click the button below to
-            reveal a list of all available CSV files.
+            View individual CSV files, preview data, or download for specific
+            dates.
           </p>
+
           <button
             id="toggle-csv-btn"
             class="accordion-btn"
-            onclick="toggleCSVList()">
-            Hide All CSVs
+            aria-expanded="true"
+            aria-controls="csv-list-container">
+            <span id="toggle-icon" class="material-symbols-outlined">
+              arrow_drop_down
+            </span>
+            <span id="toggle-text">Hide CSVs</span>
           </button>
-          <div id="csv-list-container" class="scrollable">
-            <ul id="csv-files-list"></ul>
+
+          <div id="csv-list-container">
+            <div class="input-group" id="search-bar-container">
+              <label for="search-csv" class="visually-hidden"
+                >Search CSV Files</label
+              >
+              <span class="material-symbols-outlined"> search </span>
+              <input
+                type="text"
+                id="search-csv"
+                placeholder="Search CSV Files..." />
+              <button
+                id="clear-search-btn"
+                class="clear-search-btn visually-hidden"
+                title="Clear Search">
+                <span class="material-symbols-outlined"> close </span>
+              </button>
+            </div>
+            <div class="scrollable-list">
+              <ul id="csv-files-list" role="list">
+                <!-- CSV file list will be populated here -->
+              </ul>
+            </div>
           </div>
         </section>
-        <section class="about">
-          <h2>About ShareSansar Data</h2>
+
+        <section
+          class="data-preview-section"
+          aria-labelledby="data-preview-heading">
+          <h2 id="data-preview-heading">
+            <span class="material-symbols-outlined"> preview </span> Data
+            Preview
+          </h2>
           <p>
-            ShareSansar Data offers comprehensive and meticulously curated
-            financial data extracted directly from the Nepal Stock Exchange
-            (NEPSE). Our cutting-edge scraping technology ensures the timely
-            retrieval of up-to-date NEPSE data, including stock prices, trading
-            volumes, market trends, historical performance, and dividend yields.
-            Whether you're a seasoned financial analyst, an avid investor, or a
-            business professional seeking valuable insights into Nepal's stock
-            market, ShareSansar Data provides the essential tools and resources
-            for informed decision-making and strategic planning. Stay ahead in
-            the dynamic world of finance with ShareSansar Data, your trusted
-            source for reliable NEPSE data downloads.
+            Select a CSV file from the list above to preview its contents and
+            filter data.
           </p>
+          <!-- Updated instructions -->
+          <div class="preview-controls">
+            <div class="input-group">
+              <label for="table-search" class="visually-hidden"
+                >Search Table Data</label
+              >
+              <span class="material-symbols-outlined"> search </span>
+              <input
+                type="text"
+                id="table-search"
+                placeholder="Filter Table Data..." />
+              <button
+                id="clear-table-search-btn"
+                class="clear-search-btn"
+                title="Clear Table Search">
+                <span class="material-symbols-outlined"> close </span>
+              </button>
+            </div>
+          </div>
+          <div id="table-container">
+            <!-- Table will be rendered here -->
+          </div>
+          <div id="no-results-message" class="visually-hidden">
+            No matching results found.
+          </div>
+        </section>
+
+        <section class="about" aria-labelledby="about-heading">
+          <h2 id="about-heading">
+            <span class="material-symbols-outlined"> info </span> About
+            ShareSansar Data
+          </h2>
+          <p>
+            ShareSansar Data provides comprehensive Nepal Stock Exchange (NEPSE)
+            data, including:
+          </p>
+          <ul>
+            <li>Daily stock prices</li>
+            <li>Trading volumes</li>
+            <li>Market trends</li>
+            <li>Historical data</li>
+          </ul>
         </section>
       </main>
 
       <footer>
         <p>
-          Made with <span class="heart">♥️</span> by
-          <a href="https://github.com/OmitNomis" target="_blank">OmitNomis</a>
+          Made with
+          <span class="heart" aria-label="love">♥️</span>
+          by
+          <a
+            href="https://github.com/OmitNomis"
+            target="_blank"
+            rel="noopener noreferrer"
+            >OmitNomis</a
+          >
         </p>
       </footer>
     </div>
-
+    <!-- Papa Parse Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="js/script.js"></script>
