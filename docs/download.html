@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Download NEPSE Historical Data - ShareSansar Archive</title>
+    <meta
+      name="description"
+      content="Download historical NEPSE data from ShareSansar archive. Get daily stock market data in Excel and CSV formats for comprehensive market analysis." />
+    <meta
+      name="keywords"
+      content="NEPSE data download, ShareSansar archive, Nepal Stock Exchange data, stock market CSV, NEPSE Excel data, historical stock data" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="sitemap"
+      type="application/xml"
+      title="Sitemap"
+      href="/sitemap.xml" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="download.html" class="active">Download Data</a></li>
+          <li><a href="preview.html">Preview Data</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+
+      <header class="hero">
+        <h1>Download NEPSE Data</h1>
+        <p>
+          Access comprehensive historical market data in Excel and CSV formats
+        </p>
+      </header>
+
+      <main>
+        <section class="update-info">
+          <h2>
+            <span class="material-symbols-outlined">calendar_month</span>
+            Last Updated
+          </h2>
+          <p id="last-updated-date">Loading...</p>
+        </section>
+
+        <section class="download-section">
+          <h2>
+            <span class="material-symbols-outlined">file_download</span>
+            Download Options
+          </h2>
+
+          <div class="download-cards">
+            <div class="download-card">
+              <h3>Complete Dataset (Excel)</h3>
+              <p>All historical data in a single Excel file</p>
+              <a
+                href="Data/combined_excel.xlsx"
+                download
+                class="btn btn-primary"
+                role="button">
+                <span class="material-symbols-outlined">download</span>
+                Download Excel
+              </a>
+            </div>
+
+            <div class="download-card">
+              <h3>CSV Collection</h3>
+              <p>Individual CSV files for each trading day</p>
+              <button
+                id="download-csvs-btn"
+                class="btn btn-primary"
+                aria-label="Download all CSV files as ZIP">
+                <span class="material-symbols-outlined">folder_zip</span>
+                Download All CSVs (ZIP)
+              </button>
+              <span id="download-progress" class="visually-hidden"
+                >Downloading...
+                <span class="material-symbols-outlined">
+                  hourglass_empty
+                </span></span
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="csv-list-section">
+          <h2>
+            <span class="material-symbols-outlined">table_chart</span>
+            Individual CSV Files
+          </h2>
+          <p>Download data for specific dates</p>
+
+          <div id="csv-list-container">
+            <div class="input-group" id="search-bar-container">
+              <label for="search-csv" class="visually-hidden"
+                >Search CSV Files</label
+              >
+              <span class="material-symbols-outlined">search</span>
+              <input
+                type="text"
+                id="search-csv"
+                placeholder="Search CSV Files..." />
+              <button
+                id="clear-search-btn"
+                class="clear-search-btn visually-hidden"
+                title="Clear Search">
+                <span class="material-symbols-outlined">close</span>
+              </button>
+            </div>
+            <div class="scrollable-list">
+              <ul id="csv-files-list" role="list">
+                <!-- CSV files will be listed here -->
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>
+          Data sourced from ShareSansar. This is an unofficial data archive.
+        </p>
+        <p>
+          Made with ♥️ by
+          <a
+            href="https://github.com/OmitNomis"
+            target="_blank"
+            rel="noopener noreferrer"
+            >OmitNomis</a
+          >
+        </p>
+      </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/download.js"></script>
+  </body>
+</html>
