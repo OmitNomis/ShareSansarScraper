@@ -8,14 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const loadCsvFiles = async () => {
     try {
-      const response = await fetch("Data/");
+      const response = await fetch("Data/list_of_csv_files.txt");
       const data = await response.text();
-      // Extract all CSV file names from directory listing
-      allFiles = Array.from(data.matchAll(/href="([^"]*\.csv)"/g))
-        .map((match) => match[1])
-        .sort()
-        .reverse(); // Most recent first
-
+      allFiles = data.trim().split("\n");
       displayCsvFiles(allFiles);
     } catch (error) {
       console.error("Error loading CSV files:", error);
@@ -30,14 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const date = dateMatch ? dateMatch[1] : "";
         return `
           <li>
-              <a href="preview.html?date=${date}" class="csv-link">${file.replace(
-          "/docs/Data/",
-          ""
-        )}</a>
-              <button class="download-button" data-file="${file.replace(
-                "/Data/",
-                ""
-              )}">
+              <a href="preview.html?date=${date}" class="csv-link">${file}</a>
+              <button class="download-button" data-file="${file}">
                   <span class="material-symbols-outlined">download</span>
                   Download
               </button>
@@ -66,16 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const zip = new JSZip();
 
-      // Download all files and add to zip
-      const downloads = allFiles.map(async (file) => {
-        const response = await fetch(`Data/${file.replace("Data/", "")}`);
+      for (const csvFile of allFiles) {
+        const response = await fetch(`Data/${csvFile.trim()}`);
         const blob = await response.blob();
-        zip.file(file.replace("Data/", ""), blob);
-      });
+        zip.file(csvFile.trim(), blob);
+      }
 
-      await Promise.all(downloads);
-
-      // Generate and download zip
       const zipBlob = await zip.generateAsync({ type: "blob" });
       saveAs(zipBlob, "nepse_data_all.zip");
 
