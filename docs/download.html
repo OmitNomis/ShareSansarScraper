@@ -24,16 +24,52 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Added Open Graph and Twitter Card meta tags -->
+    <meta
+      property="og:title"
+      content="Download NEPSE Historical Data - ShareSansar Archive" />
+    <meta
+      property="og:description"
+      content="Download historical NEPSE data from ShareSansar archive. Get daily stock market data in Excel and CSV formats." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Download NEPSE Historical Data" />
+    <meta
+      name="twitter:description"
+      content="Download NEPSE stock market data in Excel and CSV formats" />
+
+    <!-- Added canonical URL -->
+    <link
+      rel="canonical"
+      href="https://omitnomis.github.io/ShareSansarScraper/download.html" />
+
+    <!-- Optimized font loading -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,()%20"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'" />
   </head>
 
   <body>
     <div class="container">
-      <nav class="main-nav">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="download.html" class="active">Download Data</a></li>
-          <li><a href="preview.html">Preview Data</a></li>
-          <li><a href="about.html">About</a></li>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul role="menubar">
+          <li role="none"><a role="menuitem" href="/">Home</a></li>
+          <li role="none">
+            <a
+              role="menuitem"
+              href="download.html"
+              class="active"
+              aria-current="page"
+              >Download Data</a
+            >
+          </li>
+          <li role="none">
+            <a role="menuitem" href="preview.html">Preview Data</a>
+          </li>
+          <li role="none"><a role="menuitem" href="about.html">About</a></li>
         </ul>
       </nav>
 
@@ -44,10 +80,12 @@
         </p>
       </header>
 
-      <main>
-        <section class="update-info">
-          <h2>
-            <span class="material-symbols-outlined">calendar_month</span>
+      <main id="main-content">
+        <section class="update-info" aria-labelledby="update-heading">
+          <h2 id="update-heading">
+            <span class="material-symbols-outlined" aria-hidden="true"
+              >calendar_month</span
+            >
             Last Updated
           </h2>
           <p id="last-updated-date">Loading...</p>
@@ -126,19 +164,23 @@
         </section>
       </main>
 
-      <footer>
-        <p>
-          Data sourced from ShareSansar. This is an unofficial data archive.
-        </p>
-        <p>
-          Made with ♥️ by
-          <a
-            href="https://github.com/OmitNomis"
-            target="_blank"
-            rel="noopener noreferrer"
-            >OmitNomis</a
-          >
-        </p>
+      <footer role="contentinfo">
+        <div class="footer-content">
+          <p>
+            Data sourced from ShareSansar. This is an unofficial data archive.
+          </p>
+          <p>
+            Made with <span aria-hidden="true">♥️</span
+            ><span class="sr-only">love</span> by
+            <a
+              href="https://github.com/OmitNomis"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit OmitNomis GitHub profile (opens in new tab)"
+              >OmitNomis</a
+            >
+          </p>
+        </div>
       </footer>
     </div>
 

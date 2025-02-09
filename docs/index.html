@@ -24,16 +24,56 @@
       type="application/xml"
       title="Sitemap"
       href="/sitemap.xml" />
+
+    <!-- Added Open Graph and Twitter Card meta tags -->
+    <meta
+      property="og:title"
+      content="NEPSE Historical Data Downloads - ShareSansar Data Archive" />
+    <meta
+      property="og:description"
+      content="Access historical Nepal Stock Exchange (NEPSE) data archived from ShareSansar. Download daily stock data in Excel and CSV formats." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="NEPSE Historical Data Downloads" />
+    <meta
+      name="twitter:description"
+      content="Access and download historical NEPSE stock market data" />
+
+    <!-- Added canonical URL -->
+    <link
+      rel="canonical"
+      href="https://omitnomis.github.io/ShareSansarScraper/" />
+
+    <!-- Optimized font loading -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,()%20"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'" />
+
+    <link
+      rel="sitemap"
+      type="application/xml"
+      title="Sitemap"
+      href="/sitemap.xml" />
   </head>
 
   <body>
     <div class="container">
-      <nav class="main-nav">
-        <ul>
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="download.html">Download Data</a></li>
-          <li><a href="preview.html">Preview Data</a></li>
-          <li><a href="about.html">About</a></li>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul role="menubar">
+          <li role="none">
+            <a role="menuitem" href="/" class="active" aria-current="page"
+              >Home</a
+            >
+          </li>
+          <li role="none">
+            <a role="menuitem" href="download.html">Download Data</a>
+          </li>
+          <li role="none">
+            <a role="menuitem" href="preview.html">Preview Data</a>
+          </li>
+          <li role="none"><a role="menuitem" href="about.html">About</a></li>
         </ul>
       </nav>
 
@@ -42,9 +82,9 @@
         <p>Historical Nepal Stock Exchange data archived from ShareSansar</p>
       </header>
 
-      <main>
-        <section class="features">
-          <h2>What We Offer</h2>
+      <main id="main-content">
+        <section class="features" aria-labelledby="features-heading">
+          <h2 id="features-heading">What We Offer</h2>
           <div class="feature-grid">
             <div class="feature-card">
               <span class="material-symbols-outlined">download</span>
@@ -79,19 +119,23 @@
         </section>
       </main>
 
-      <footer>
-        <p>
-          Data sourced from ShareSansar. This is an unofficial data archive.
-        </p>
-        <p>
-          Made with ♥️ by
-          <a
-            href="https://github.com/OmitNomis"
-            target="_blank"
-            rel="noopener noreferrer"
-            >OmitNomis</a
-          >
-        </p>
+      <footer role="contentinfo">
+        <div class="footer-content">
+          <p>
+            Data sourced from ShareSansar. This is an unofficial data archive.
+          </p>
+          <p>
+            Made with <span aria-hidden="true">♥️</span
+            ><span class="sr-only">love</span> by
+            <a
+              href="https://github.com/OmitNomis"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit OmitNomis GitHub profile (opens in new tab)"
+              >OmitNomis</a
+            >
+          </p>
+        </div>
       </footer>
     </div>
     <script src="js/common.js"></script>

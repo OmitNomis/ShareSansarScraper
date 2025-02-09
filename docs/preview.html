@@ -28,15 +28,50 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- Added Open Graph and Twitter Card meta tags -->
+    <meta
+      property="og:title"
+      content="Preview NEPSE Stock Data - ShareSansar Data Archive" />
+    <meta
+      property="og:description"
+      content="Preview and filter Nepal Stock Exchange (NEPSE) data before downloading. View historical stock market data sourced from ShareSansar." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Preview NEPSE Stock Data" />
+    <meta
+      name="twitter:description"
+      content="Preview and filter NEPSE stock market data before downloading" />
+
+    <!-- Added canonical URL -->
+    <link
+      rel="canonical"
+      href="https://omitnomis.github.io/ShareSansarScraper/preview.html" />
+
+    <!-- Optimized font loading -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,()%20"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'" />
   </head>
   <body>
     <div class="container">
-      <nav class="main-nav">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="download.html">Download Data</a></li>
-          <li><a href="preview.html" class="active">Preview Data</a></li>
-          <li><a href="about.html">About</a></li>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul role="menubar">
+          <li role="none"><a role="menuitem" href="/">Home</a></li>
+          <li role="none">
+            <a role="menuitem" href="download.html">Download Data</a>
+          </li>
+          <li role="none">
+            <a
+              role="menuitem"
+              href="preview.html"
+              class="active"
+              aria-current="page"
+              >Preview Data</a
+            >
+          </li>
+          <li role="none"><a role="menuitem" href="about.html">About</a></li>
         </ul>
       </nav>
 
@@ -45,10 +80,12 @@
         <p>View and filter stock market data before downloading</p>
       </header>
 
-      <main>
-        <section class="data-preview-section">
-          <h2>
-            <span class="material-symbols-outlined">preview</span>
+      <main id="main-content">
+        <section class="data-preview-section" aria-labelledby="preview-heading">
+          <h2 id="preview-heading">
+            <span class="material-symbols-outlined" aria-hidden="true"
+              >preview</span
+            >
             Data Preview
           </h2>
 
@@ -110,19 +147,23 @@
         </section>
       </main>
 
-      <footer>
-        <p>
-          Data sourced from ShareSansar. This is an unofficial data archive.
-        </p>
-        <p>
-          Made with ♥️ by
-          <a
-            href="https://github.com/OmitNomis"
-            target="_blank"
-            rel="noopener noreferrer"
-            >OmitNomis</a
-          >
-        </p>
+      <footer role="contentinfo">
+        <div class="footer-content">
+          <p>
+            Data sourced from ShareSansar. This is an unofficial data archive.
+          </p>
+          <p>
+            Made with <span aria-hidden="true">♥️</span
+            ><span class="sr-only">love</span> by
+            <a
+              href="https://github.com/OmitNomis"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit OmitNomis GitHub profile (opens in new tab)"
+              >OmitNomis</a
+            >
+          </p>
+        </div>
       </footer>
     </div>
 
