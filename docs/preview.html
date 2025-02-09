@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preview NEPSE Stock Data - ShareSansar Data Archive</title>
+    <meta
+      name="description"
+      content="Preview and filter Nepal Stock Exchange (NEPSE) data before downloading. View historical stock market data sourced from ShareSansar." />
+    <meta
+      name="keywords"
+      content="NEPSE data preview, ShareSansar data, Nepal stock market, stock data filter, NEPSE historical data" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="sitemap"
+      type="application/xml"
+      title="Sitemap"
+      href="/sitemap.xml" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="download.html">Download Data</a></li>
+          <li><a href="preview.html" class="active">Preview Data</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+
+      <header class="hero">
+        <h1>Preview NEPSE Data</h1>
+        <p>View and filter stock market data before downloading</p>
+      </header>
+
+      <main>
+        <section class="data-preview-section">
+          <h2>
+            <span class="material-symbols-outlined">preview</span>
+            Data Preview
+          </h2>
+
+          <div class="preview-controls">
+            <div class="date-control-group">
+              <div class="date-row">
+                <div class="date-picker-group">
+                  <div class="input-group">
+                    <span class="material-symbols-outlined"
+                      >calendar_today</span
+                    >
+                    <input
+                      type="text"
+                      id="date-picker"
+                      placeholder="Select date..." />
+                  </div>
+                </div>
+                <div class="date-navigation">
+                  <button id="prev-date" class="nav-btn" disabled>
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    Previous Day
+                  </button>
+                  <button id="next-date" class="nav-btn" disabled>
+                    Next Day
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="search-row">
+              <div class="input-group">
+                <label for="table-search" class="visually-hidden"
+                  >Search Table Data</label
+                >
+                <span class="material-symbols-outlined">search</span>
+                <input
+                  type="text"
+                  id="table-search"
+                  placeholder="Filter Table Data..." />
+                <button
+                  id="clear-table-search-btn"
+                  class="clear-search-btn"
+                  title="Clear Table Search">
+                  <span class="material-symbols-outlined">close</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-wrapper">
+            <div id="table-container">
+              <!-- Table will be rendered here -->
+            </div>
+          </div>
+          <div id="no-results-message" class="visually-hidden">
+            No matching results found.
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>
+          Data sourced from ShareSansar. This is an unofficial data archive.
+        </p>
+        <p>
+          Made with ♥️ by
+          <a
+            href="https://github.com/OmitNomis"
+            target="_blank"
+            rel="noopener noreferrer"
+            >OmitNomis</a
+          >
+        </p>
+      </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/preview.js"></script>
+  </body>
+</html>
