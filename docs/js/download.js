@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ""
         )}</a>
               <button class="download-button" data-file="${file.replace(
-                "/docs/Data/",
+                "/Data/",
                 ""
               )}">
                   <span class="material-symbols-outlined">download</span>
@@ -68,9 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Download all files and add to zip
       const downloads = allFiles.map(async (file) => {
-        const response = await fetch(`Data/${file.replace("/docs/Data/", "")}`);
+        const response = await fetch(`Data/${file.replace("Data/", "")}`);
         const blob = await response.blob();
-        zip.file(file.replace("/docs/Data/", ""), blob);
+        zip.file(file.replace("Data/", ""), blob);
       });
 
       await Promise.all(downloads);
