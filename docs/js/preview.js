@@ -83,14 +83,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const initializeDatePicker = async () => {
     try {
-      // Check for date parameter in URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const dateParam = urlParams.get("date");
-
-      const response = await fetch("Data/");
+      const response = await fetch("Data/list_of_csv_files.txt");
       const data = await response.text();
-      availableDates = (data.match(/href="([^"]*\.csv)"/g) || [])
-        .map((href) => href.match(/(\d{4}_\d{2}_\d{2})\.csv/)?.[1])
+      availableDates = data
+        .trim()
+        .split("\n")
+        .map((file) => file.match(/(\d{4}_\d{2}_\d{2})\.csv/)?.[1])
         .filter(Boolean)
         .sort();
 
@@ -116,6 +114,10 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         },
       });
+
+      // Check for date parameter in URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const dateParam = urlParams.get("date");
 
       // Set initial date based on URL parameter or latest available
       currentDateIndex = dateParam
