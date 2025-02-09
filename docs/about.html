@@ -4,17 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About NEPSE Data Archive - ShareSansar Data Collection</title>
+
+    <!-- Added Open Graph and Twitter Card meta tags -->
     <meta
-      name="description"
+      property="og:title"
+      content="About NEPSE Data Archive - ShareSansar Data Collection" />
+    <meta
+      property="og:description"
       content="Learn about our NEPSE data archive project. We collect and organize Nepal Stock Exchange data from ShareSansar for easy access and analysis." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="About NEPSE Data Archive" />
     <meta
-      name="keywords"
-      content="NEPSE data archive, ShareSansar data collection, Nepal stock market data, about NEPSE archive" />
+      name="twitter:description"
+      content="NEPSE data archive project for historical stock market data analysis" />
+
+    <!-- Added canonical URL -->
+    <link rel="canonical" href="https://yourdomain.com/about.html" />
+
+    <!-- Optimized Google Fonts loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet" />
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,()%20"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'" />
     <link
       rel="sitemap"
       type="application/xml"
@@ -27,12 +42,24 @@
   </head>
   <body>
     <div class="container">
-      <nav class="main-nav">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="download.html">Download Data</a></li>
-          <li><a href="preview.html">Preview Data</a></li>
-          <li><a href="about.html" class="active">About</a></li>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul role="menubar">
+          <li role="none"><a role="menuitem" href="/">Home</a></li>
+          <li role="none">
+            <a role="menuitem" href="download.html">Download Data</a>
+          </li>
+          <li role="none">
+            <a role="menuitem" href="preview.html">Preview Data</a>
+          </li>
+          <li role="none">
+            <a
+              role="menuitem"
+              href="about.html"
+              class="active"
+              aria-current="page"
+              >About</a
+            >
+          </li>
         </ul>
       </nav>
 
@@ -41,13 +68,15 @@
         <p>Understanding our NEPSE data archive initiative</p>
       </header>
 
-      <main>
-        <section class="about-section">
-          <h2>
-            <span class="material-symbols-outlined">info</span>
+      <main id="main-content">
+        <section class="about-section" aria-labelledby="project-overview">
+          <h2 id="project-overview">
+            <span class="material-symbols-outlined" aria-hidden="true"
+              >info</span
+            >
             Project Overview
           </h2>
-          <div class="content-card">
+          <article class="content-card">
             <h3>What We Do</h3>
             <p>
               This project archives historical NEPSE (Nepal Stock Exchange) data
@@ -59,18 +88,18 @@
               <li>Data-driven investment decisions</li>
               <li>Academic and educational purposes</li>
             </ul>
-          </div>
+          </article>
 
-          <div class="content-card">
+          <article class="content-card">
             <h3>Data Source</h3>
             <p>
               All data is sourced from ShareSansar, a leading financial news
               portal in Nepal. This is an unofficial archive project and is not
               affiliated with ShareSansar or NEPSE.
             </p>
-          </div>
+          </article>
 
-          <div class="content-card">
+          <article class="content-card">
             <h3>Updates & Maintenance</h3>
             <p>
               The data is updated regularly to ensure you have access to the
@@ -81,23 +110,27 @@
               <li>Data accuracy depends on the source</li>
               <li>Use the data at your own discretion</li>
             </ul>
-          </div>
+          </article>
         </section>
       </main>
 
-      <footer>
-        <p>
-          Data sourced from ShareSansar. This is an unofficial data archive.
-        </p>
-        <p>
-          Made with ♥️ by
-          <a
-            href="https://github.com/OmitNomis"
-            target="_blank"
-            rel="noopener noreferrer"
-            >OmitNomis</a
-          >
-        </p>
+      <footer role="contentinfo">
+        <div class="footer-content">
+          <p>
+            Data sourced from ShareSansar. This is an unofficial data archive.
+          </p>
+          <p>
+            Made with <span aria-hidden="true">♥️</span
+            ><span class="sr-only">love</span> by
+            <a
+              href="https://github.com/OmitNomis"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit OmitNomis GitHub profile (opens in new tab)"
+              >OmitNomis</a
+            >
+          </p>
+        </div>
       </footer>
     </div>
     <script src="js/common.js"></script>
