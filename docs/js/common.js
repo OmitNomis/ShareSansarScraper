@@ -15,12 +15,19 @@ const updateLastModifiedDate = async () => {
   try {
     const lastUpdatedElement = document.getElementById("last-updated-date");
     if (lastUpdatedElement) {
-      const response = await fetch("Data/combined_excel.xlsx");
+      const response = await fetch("Data/list_of_csv_files.txt");
       if (response.ok) {
-        const lastModified = response.headers.get("last-modified");
-        lastUpdatedElement.textContent = `Last updated: ${formatDate(
-          lastModified
-        )}`;
+        const text = await response.text();
+        const firstLine = text.split("\n")[0];
+        if (firstLine) {
+          const dateParts = firstLine.replace(".csv", "").split("_");
+          const dateStr = `${dateParts[0]}-${dateParts[1]}-${dateParts[2]}`;
+          lastUpdatedElement.textContent = `Last updated: ${formatDate(
+            dateStr
+          )}`;
+        } else {
+          lastUpdatedElement.textContent = "Last updated: No data available";
+        }
       } else {
         lastUpdatedElement.textContent =
           "Last updated: Unable to fetch update time";
@@ -36,23 +43,7 @@ const updateLastModifiedDate = async () => {
   }
 };
 
-// Handle navigation active states
-const updateNavigationState = () => {
-  const currentPath = window.location.pathname;
-  const navLinks = document.querySelectorAll(".main-nav a");
-
-  navLinks.forEach((link) => {
-    const linkPath = link.getAttribute("href");
-    if (currentPath.endsWith(linkPath)) {
-      link.classList.add("active");
-    } else {
-      link.classList.remove("active");
-    }
-  });
-};
-
 // Initialize common functionality
 document.addEventListener("DOMContentLoaded", () => {
   updateLastModifiedDate();
-  updateNavigationState();
 });
