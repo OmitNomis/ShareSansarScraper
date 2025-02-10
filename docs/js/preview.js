@@ -6,11 +6,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const datePicker = document.getElementById("date-picker");
   const prevDateBtn = document.getElementById("prev-date");
   const nextDateBtn = document.getElementById("next-date");
+  const loadingSpinner = document.getElementById("loading-spinner");
 
   let currentData = [];
   let availableDates = [];
   let currentDateIndex = -1;
-  let currentSearchTerm = ""; // Add this to store current search term
+  let currentSearchTerm = "";
+
+  const showLoading = () => {
+    loadingSpinner.classList.remove("visually-hidden");
+    tableContainer.innerHTML = "";
+  };
+
+  const hideLoading = () => {
+    loadingSpinner.classList.add("visually-hidden");
+  };
 
   const createTable = (data) => {
     if (!data || !data.length) return "";
@@ -53,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const formatDateForDisplay = (dateStr) => {
-    // Convert from YYYY_MM_DD to YYYY-MM-DD for flatpickr
     return dateStr.replace(/_/g, "-");
   };
 
@@ -76,13 +85,13 @@ document.addEventListener("DOMContentLoaded", () => {
       link.click();
     });
 
-    // Insert after the search row
     const searchRow = document.querySelector(".search-row");
     searchRow.after(downloadBtn);
   };
 
   const initializeDatePicker = async () => {
     try {
+      showLoading();
       const response = await fetch("Data/list_of_csv_files.txt");
       const data = await response.text();
       availableDates = data
@@ -93,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .sort();
 
       if (availableDates.length === 0) {
+        hideLoading();
         showError("No data files available");
         return;
       }
@@ -115,11 +125,9 @@ document.addEventListener("DOMContentLoaded", () => {
         },
       });
 
-      // Check for date parameter in URL
       const urlParams = new URLSearchParams(window.location.search);
       const dateParam = urlParams.get("date");
 
-      // Set initial date based on URL parameter or latest available
       currentDateIndex = dateParam
         ? availableDates.indexOf(dateParam)
         : availableDates.length - 1;
@@ -133,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
       addDownloadButton(initialDate);
     } catch (error) {
       console.error("Error initializing date picker:", error);
+      hideLoading();
       showError("Error loading available dates");
     }
   };
@@ -143,6 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const showError = (message) => {
+    hideLoading();
     tableContainer.innerHTML = `
             <div class="error-message">
                 <span class="material-symbols-outlined">error</span>
@@ -153,6 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const loadCSVData = async (date) => {
     try {
+      showLoading();
       const response = await fetch(`Data/${date}.csv`);
       if (!response.ok) {
         showError(`No data available for ${formatDateForDisplay(date)}`);
@@ -169,13 +180,13 @@ document.addEventListener("DOMContentLoaded", () => {
           }
           currentData = results.data;
 
-          // Apply current search term if exists
           if (currentSearchTerm) {
             const filteredData = filterData(currentSearchTerm);
             tableContainer.innerHTML = createTable(filteredData);
           } else {
             tableContainer.innerHTML = createTable(currentData);
           }
+          hideLoading();
         },
         error: (error) => {
           console.error("Error parsing CSV:", error);
@@ -188,7 +199,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Event listeners for search
   tableSearch.addEventListener("input", (e) => {
     currentSearchTerm = e.target.value;
     const filteredData = filterData(currentSearchTerm);
@@ -208,7 +218,6 @@ document.addEventListener("DOMContentLoaded", () => {
     clearTableSearchBtn.classList.add("visually-hidden");
   });
 
-  // Navigation event listeners
   prevDateBtn.addEventListener("click", () => {
     if (currentDateIndex > 0) {
       currentDateIndex--;
@@ -231,6 +240,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Initialize
   initializeDatePicker();
 });
