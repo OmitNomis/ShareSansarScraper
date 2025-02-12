@@ -12,10 +12,6 @@
     <meta
       name="keywords"
       content="NEPSE data preview, NEPSE historical data, Nepal stock exchange data, NEPSE data filter, NEPSE market data, NEPSE trading information" />
-
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="css/styles.css" />
     <link
       rel="sitemap"
@@ -76,9 +72,11 @@
       <main id="main-content">
         <section class="data-preview-section" aria-labelledby="preview-heading">
           <h2 id="preview-heading">
-            <span class="material-symbols-outlined" aria-hidden="true"
-              >preview</span
-            >
+            <img
+              src="assets/icons/search.svg"
+              alt="Preview icon"
+              class="icon"
+              aria-hidden="true" />
             Data Preview
           </h2>
 
@@ -87,9 +85,11 @@
               <div class="date-row">
                 <div class="date-picker-group">
                   <div class="input-group">
-                    <span class="material-symbols-outlined"
-                      >calendar_today</span
-                    >
+                    <img
+                      src="assets/icons/calendar-month.svg"
+                      alt="Calendar icon"
+                      class="icon"
+                      aria-hidden="true" />
                     <input
                       type="text"
                       id="date-picker"
@@ -98,12 +98,20 @@
                 </div>
                 <div class="date-navigation">
                   <button id="prev-date" class="nav-btn" disabled>
-                    <span class="material-symbols-outlined">arrow_back</span>
+                    <img
+                      src="assets/icons/arrow-back.svg"
+                      alt="Previous"
+                      class="icon"
+                      aria-hidden="true" />
                     Previous Day
                   </button>
                   <button id="next-date" class="nav-btn" disabled>
                     Next Day
-                    <span class="material-symbols-outlined">arrow_forward</span>
+                    <img
+                      src="assets/icons/arrow-forward.svg"
+                      alt="Next"
+                      class="icon"
+                      aria-hidden="true" />
                   </button>
                 </div>
               </div>
@@ -114,7 +122,11 @@
                 <label for="table-search" class="visually-hidden"
                   >Search Table Data</label
                 >
-                <span class="material-symbols-outlined">search</span>
+                <img
+                  src="assets/icons/search.svg"
+                  alt="Search"
+                  class="icon"
+                  aria-hidden="true" />
                 <input
                   type="text"
                   id="table-search"
@@ -123,7 +135,11 @@
                   id="clear-table-search-btn"
                   class="clear-search-btn"
                   title="Clear Table Search">
-                  <span class="material-symbols-outlined">close</span>
+                  <img
+                    src="assets/icons/close.svg"
+                    alt="Clear"
+                    class="icon"
+                    aria-hidden="true" />
                 </button>
               </div>
             </div>

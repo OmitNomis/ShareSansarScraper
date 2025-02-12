@@ -120,6 +120,74 @@ main section {
   margin: 0.4rem;
 }
 
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  transition: transform 0.2s ease;
+}
+
+.btn:hover .icon,
+.nav-btn:hover .icon {
+  transform: scale(1.1);
+}
+
+.feature-card .icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 1rem;
+  stroke: var(--primary-color);
+}
+
+.input-group .icon {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  margin-right: 0;
+  stroke: var(--secondary-color);
+  pointer-events: none;
+}
+
+.csv-list-section .input-group .icon {
+  left: 1.8rem;
+}
+
+.clear-search-btn .icon {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  stroke: var(--secondary-color);
+  transition: transform 0.2s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.clear-search-btn:hover .icon {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.download-button .icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.5rem;
+  stroke: currentColor;
+  transition: transform 0.2s ease;
+}
+
+.download-button:hover .icon {
+  transform: scale(1.1);
+}
+
+.nav-btn:disabled .icon {
+  stroke: var(--gray-color);
+}
+
 .btn:hover {
   background-color: var(--primary-color-dark);
   transform: translateY(-2px);
@@ -169,22 +237,6 @@ main section {
   margin-top: 1rem;
   transition: background-color 0.2s ease-in-out;
   width: 100%;
-}
-
-.accordion-btn:hover {
-  background-color: var(--success-color-dark);
-}
-
-.accordion-btn span.material-symbols-outlined {
-  margin-right: 0.6rem;
-  transition: transform 0.2s ease-in-out;
-  font-size: 1.5rem;
-  /* Larger icon */
-  vertical-align: middle;
-}
-
-.accordion-btn[aria-expanded="true"] span.material-symbols-outlined {
-  transform: rotate(360deg);
 }
 
 #csv-list-container {
@@ -254,11 +306,6 @@ main section {
   color: #fff;
 }
 
-.download-button .material-symbols-outlined {
-  margin-right: 0.4rem;
-  /* Space between icon and text */
-}
-
 /* Input Group */
 .input-group {
   display: flex;
@@ -276,22 +323,13 @@ main section {
   font-family: var(--font-family);
 }
 
-.input-group span.material-symbols-outlined {
-  position: absolute;
-  left: 1.8rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--secondary-color);
-  z-index: 1;
-}
-
 .input-group input {
   padding-left: 2.5rem;
 }
 
 .clear-search-btn {
   position: absolute;
-  right: 2rem;
+  right: 1rem;
   top: 50%;
   transform: translateY(-50%);
   background: none;
@@ -305,13 +343,23 @@ main section {
   border-radius: 50%;
   transition: background-color 0.2s ease;
   z-index: 3;
+  width: 24px;
+  height: 24px;
+}
+
+.clear-search-btn .icon {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  stroke: var(--secondary-color);
+  transition: transform 0.2s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .clear-search-btn > span {
-  pointer-events: auto;
-}
-.input-group span.material-symbols-outlined {
-  z-index: 3;
   pointer-events: auto;
 }
 
@@ -364,18 +412,6 @@ main section {
     justify-content: center;
     padding: 0.8rem;
   }
-
-  .nav-btn span.material-symbols-outlined {
-    margin: 0;
-  }
-
-  .nav-btn span:not(.material-symbols-outlined) {
-    display: none;
-  }
-}
-
-.preview-controls .input-group span.material-symbols-outlined {
-  left: 0.8rem;
 }
 
 .date-picker-group,
@@ -480,9 +516,6 @@ th {
     margin-bottom: 0.6rem;
   }
 
-  .input-group span.material-symbols-outlined {
-    display: none;
-  }
   .scrollable-list {
     padding: 0 1rem 1rem 1rem;
   }
@@ -555,12 +588,6 @@ th {
   border-radius: var(--border-radius);
   text-align: center;
   box-shadow: var(--box-shadow);
-}
-
-.feature-card .material-symbols-outlined {
-  font-size: 3rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
 }
 
 /* Download Cards */
