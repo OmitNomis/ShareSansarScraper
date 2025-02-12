@@ -75,7 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const downloadBtn = document.createElement("button");
     downloadBtn.className = "btn btn-primary csv-download-btn";
     downloadBtn.innerHTML = `
-        <span class="material-symbols-outlined">download</span>
+        <img
+                  src="assets/icons/download.svg"
+                  alt="ZIP folder"
+                  class="icon"
+                  aria-hidden="true" />
         Download Current CSV
     `;
     downloadBtn.addEventListener("click", () => {

@@ -18,9 +18,6 @@
       type="application/xml"
       title="Sitemap"
       href="https://omitnomis.github.io/ShareSansarScraper/sitemap.xml" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="css/styles.css" />
 
     <!-- Added Open Graph and Twitter Card meta tags -->
@@ -74,9 +71,11 @@
       <main id="main-content">
         <section class="update-info" aria-labelledby="update-heading">
           <h2 id="update-heading">
-            <span class="material-symbols-outlined" aria-hidden="true"
-              >calendar_month</span
-            >
+            <img
+              src="assets/icons/calendar-month.svg"
+              alt="Calendar icon"
+              class="icon"
+              aria-hidden="true" />
             Last Updated
           </h2>
           <p id="last-updated-date">Loading...</p>
@@ -84,7 +83,11 @@
 
         <section class="download-section">
           <h2>
-            <span class="material-symbols-outlined">file_download</span>
+            <img
+              src="assets/icons/download.svg"
+              alt="Download icon"
+              class="icon"
+              aria-hidden="true" />
             Download Options
           </h2>
 
@@ -97,7 +100,11 @@
                 download
                 class="btn btn-primary"
                 role="button">
-                <span class="material-symbols-outlined">download</span>
+                <img
+                  src="assets/icons/download.svg"
+                  alt="Download icon"
+                  class="icon"
+                  aria-hidden="true" />
                 Download Excel
               </a>
             </div>
@@ -109,22 +116,32 @@
                 id="download-csvs-btn"
                 class="btn btn-primary"
                 aria-label="Download all CSV files as ZIP">
-                <span class="material-symbols-outlined">folder_zip</span>
+                <img
+                  src="assets/icons/folder-zip.svg"
+                  alt="ZIP folder"
+                  class="icon"
+                  aria-hidden="true" />
                 Download All CSVs (ZIP)
               </button>
               <span id="download-progress" class="visually-hidden"
                 >Downloading...
-                <span class="material-symbols-outlined">
-                  hourglass_empty
-                </span></span
-              >
+                <img
+                  src="assets/icons/hourglass.svg"
+                  alt="Loading"
+                  class="icon"
+                  aria-hidden="true" />
+              </span>
             </div>
           </div>
         </section>
 
         <section class="csv-list-section">
           <h2>
-            <span class="material-symbols-outlined">table_chart</span>
+            <img
+              src="assets/icons/table.svg"
+              alt="Table icon"
+              class="icon"
+              aria-hidden="true" />
             Individual CSV Files
           </h2>
           <p>Download data for specific dates</p>
@@ -134,7 +151,11 @@
               <label for="search-csv" class="visually-hidden"
                 >Search CSV Files</label
               >
-              <span class="material-symbols-outlined">search</span>
+              <img
+                src="assets/icons/search.svg"
+                alt="Search"
+                class="icon"
+                aria-hidden="true" />
               <input
                 type="text"
                 id="search-csv"
@@ -143,7 +164,11 @@
                 id="clear-search-btn"
                 class="clear-search-btn visually-hidden"
                 title="Clear Search">
-                <span class="material-symbols-outlined">close</span>
+                <img
+                  src="assets/icons/close.svg"
+                  alt="Clear"
+                  class="icon"
+                  aria-hidden="true" />
               </button>
             </div>
             <div class="scrollable-list">

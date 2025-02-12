@@ -27,7 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
           <li>
               <a href="preview.html?date=${date}" class="csv-link">${file}</a>
               <button class="download-button" data-file="${file}">
-                  <span class="material-symbols-outlined">download</span>
+                 <img
+                  src="assets/icons/download.svg"
+                  alt="ZIP folder"
+                  class="icon"
+                  aria-hidden="true" />
                   Download
               </button>
           </li>
