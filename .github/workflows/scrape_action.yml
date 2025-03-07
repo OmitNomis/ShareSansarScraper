@@ -38,8 +38,6 @@ jobs:
 
       - name: Commit and Push Files
         run: |
-          git config --local user.email "${{secrets.GLOBAL_USER_EMAIL}}"
-          git config --local user.name "${{secrets.GLOBAL_USER_NAME}}"
           git add .
           git commit -am "Share data has been successfully scrapped"
           git push origin master
