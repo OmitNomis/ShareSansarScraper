@@ -66,7 +66,7 @@ pip install -r requirements.txt
 ## **Notes:**
 
 - The scraped data is stored in a CSV file with the naming convention `YYYY_MM_DD.csv` in the `Data` directory within your project.
-- After each CSV is downloaded the, all the CSV files, including the new one is combined to generate an excel file containing all CSV as worksheets.
+- After each CSV is downloaded, CSV files, including the new one is combined to generate an excel file containing all CSV as worksheets.
 - The script utilizes the `datetime.now()` function to generate the current date in the format specified.
 
 ## Workflow Explaination
