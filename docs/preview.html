@@ -4,14 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      Preview NEPSE Historical Data - Nepal Stock Exchange Data Archive
+      Preview NEPSE Data — Nepal Stock Exchange Daily Share Prices
     </title>
     <meta
       name="description"
-      content="Preview and filter Nepal Stock Exchange (NEPSE) historical data before downloading. Access comprehensive stock market data and trading information." />
+      content="Browse NEPSE (Nepal Stock Exchange) share prices by trading day. Filter any session by symbol — open, high, low, close, LTP, volume and turnover — then download that day's CSV. Free, no login." />
     <meta
       name="keywords"
-      content="NEPSE data preview, NEPSE historical data, Nepal stock exchange data, NEPSE data filter, NEPSE market data, NEPSE trading information" />
+      content="NEPSE data preview, NEPSE share price, today's share price NEPSE, NEPSE by symbol, Nepal Stock Exchange data, NEPSE historical data, NEPSE daily prices, NEPSE OHLC, NEPSE LTP, NEPSE turnover, browse NEPSE data, NEPSE market data" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="author" content="OmitNomis" />
+    <meta name="theme-color" content="#bcff3c" />
+    <meta name="geo.region" content="NP" />
+    <meta name="geo.placename" content="Nepal" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,19 +29,45 @@
       href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+
     <!-- Open Graph and Twitter Card meta tags -->
+    <meta property="og:site_name" content="NEPSE // Archive" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
     <meta
       property="og:title"
-      content="Preview NEPSE Historical Data - Nepal Stock Exchange Data Archive" />
+      content="Preview NEPSE Data — Nepal Stock Exchange Daily Share Prices" />
     <meta
       property="og:description"
-      content="Preview and filter Nepal Stock Exchange (NEPSE) historical data before downloading. Access comprehensive stock market data and trading information." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Preview NEPSE Stock Data" />
+      content="Browse NEPSE (Nepal Stock Exchange) share prices by trading day, filter by symbol, then download that day's CSV. Free, no login." />
+    <meta
+      property="og:url"
+      content="https://omitnomis.github.io/ShareSansarScraper/preview.html" />
+    <meta
+      property="og:image"
+      content="https://omitnomis.github.io/ShareSansarScraper/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="NEPSE // Archive — Nepal Stock Exchange share-price history, free to download" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Preview NEPSE Data — Nepal Stock Exchange Daily Share Prices" />
     <meta
       name="twitter:description"
-      content="Preview and filter NEPSE stock market data before downloading" />
+      content="Browse NEPSE share prices by trading day, filter by symbol, then download that day's CSV." />
+    <meta
+      name="twitter:image"
+      content="https://omitnomis.github.io/ShareSansarScraper/assets/og-image.png" />
+    <meta
+      name="twitter:image:alt"
+      content="NEPSE // Archive — Nepal Stock Exchange share-price history" />
 
     <link
       rel="canonical"
@@ -46,6 +77,71 @@
       type="application/xml"
       title="Sitemap"
       href="https://omitnomis.github.io/ShareSansarScraper/sitemap.xml" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://omitnomis.github.io/ShareSansarScraper/#website",
+          "url": "https://omitnomis.github.io/ShareSansarScraper/",
+          "name": "NEPSE // Archive",
+          "alternateName": "NEPSE Historical Data Archive",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://omitnomis.github.io/ShareSansarScraper/#org" }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://omitnomis.github.io/ShareSansarScraper/#org",
+          "name": "NEPSE // Archive",
+          "url": "https://omitnomis.github.io/ShareSansarScraper/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://omitnomis.github.io/ShareSansarScraper/assets/icon-512.png",
+            "width": 512,
+            "height": 512
+          },
+          "sameAs": [
+            "https://github.com/OmitNomis/ShareSansarScraper",
+            "https://github.com/OmitNomis"
+          ]
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://omitnomis.github.io/ShareSansarScraper/preview.html#webpage",
+          "url": "https://omitnomis.github.io/ShareSansarScraper/preview.html",
+          "name": "Preview NEPSE Data — Nepal Stock Exchange Daily Share Prices",
+          "isPartOf": { "@id": "https://omitnomis.github.io/ShareSansarScraper/#website" },
+          "about": { "@id": "https://omitnomis.github.io/ShareSansarScraper/#dataset" },
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://omitnomis.github.io/ShareSansarScraper/assets/og-image.png"
+          },
+          "inLanguage": "en",
+          "breadcrumb": { "@id": "https://omitnomis.github.io/ShareSansarScraper/preview.html#breadcrumb" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://omitnomis.github.io/ShareSansarScraper/preview.html#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://omitnomis.github.io/ShareSansarScraper/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Preview",
+              "item": "https://omitnomis.github.io/ShareSansarScraper/preview.html"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
 
   <body>

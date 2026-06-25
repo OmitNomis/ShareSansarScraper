@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="NEPSE Archive">
+  <!-- Neobrutalist brand mark: lime square, hard black border + offset shadow, blocky N -->
+  <rect x="14" y="16" width="40" height="40" fill="#111111"/>
+  <rect x="10" y="10" width="40" height="40" fill="#bcff3c" stroke="#111111" stroke-width="4"/>
+  <path d="M19 41 V19 L41 41 V19" fill="none" stroke="#111111" stroke-width="7" stroke-linejoin="miter" stroke-linecap="butt"/>
+</svg>

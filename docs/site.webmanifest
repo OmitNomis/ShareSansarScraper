@@ -1,0 +1,16 @@
+{
+  "name": "NEPSE // Archive — Nepal Stock Exchange Historical Data",
+  "short_name": "NEPSE Archive",
+  "description": "Free archive of NEPSE (Nepal Stock Exchange) historical share-price data. Preview online or download CSV & Excel.",
+  "lang": "en",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4efe3",
+  "theme_color": "#bcff3c",
+  "icons": [
+    { "src": "favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "assets/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "assets/icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}

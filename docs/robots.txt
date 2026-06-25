@@ -1,3 +1,6 @@
+# https://omitnomis.github.io/ShareSansarScraper/
+# NEPSE // Archive — open for indexing.
 User-agent: *
-Disallow:
+Allow: /
+
 Sitemap: https://omitnomis.github.io/ShareSansarScraper/sitemap.xml
