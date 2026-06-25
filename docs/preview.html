@@ -12,17 +12,19 @@
     <meta
       name="keywords"
       content="NEPSE data preview, NEPSE historical data, Nepal stock exchange data, NEPSE data filter, NEPSE market data, NEPSE trading information" />
-    <link rel="stylesheet" href="css/styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="sitemap"
-      type="application/xml"
-      title="Sitemap"
-      href="https://omitnomis.github.io/ShareSansarScraper/sitemap.xml" />
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <!-- Added Open Graph and Twitter Card meta tags -->
+
+    <!-- Open Graph and Twitter Card meta tags -->
     <meta
       property="og:title"
       content="Preview NEPSE Historical Data - Nepal Stock Exchange Data Archive" />
@@ -36,150 +38,142 @@
       name="twitter:description"
       content="Preview and filter NEPSE stock market data before downloading" />
 
-    <!-- Added canonical URL -->
     <link
       rel="canonical"
       href="https://omitnomis.github.io/ShareSansarScraper/preview.html" />
+    <link
+      rel="sitemap"
+      type="application/xml"
+      title="Sitemap"
+      href="https://omitnomis.github.io/ShareSansarScraper/sitemap.xml" />
   </head>
+
   <body>
-    <div class="container">
-      <nav class="main-nav" aria-label="Main navigation">
-        <ul role="menubar">
-          <li role="none"><a role="menuitem" href="index.html">Home</a></li>
-          <li role="none">
-            <a role="menuitem" href="download.html">Download Data</a>
-          </li>
-          <li role="none">
-            <a
-              role="menuitem"
-              href="preview.html"
-              class="active"
-              aria-current="page"
-              >Preview Data</a
-            >
-          </li>
-          <li role="menuitem">
-            <a role="menuitem" href="about.html">About</a>
-          </li>
-        </ul>
-      </nav>
+    <a class="skip-link" href="#main-content">Skip to content</a>
 
-      <header class="hero">
-        <h1>Preview NEPSE Historical Data</h1>
-        <p>View and filter Nepal Stock Exchange data before downloading</p>
-      </header>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">N</span>
+          <span>NEPSE<span class="brand-slash">//</span>ARCHIVE</span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="nav-links">
+          <span></span>
+        </button>
+        <nav aria-label="Main navigation">
+          <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="download.html">Download</a></li>
+            <li>
+              <a href="preview.html" class="active" aria-current="page"
+                >Preview</a
+              >
+            </li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-      <main id="main-content">
-        <section class="data-preview-section" aria-labelledby="preview-heading">
-          <h2 id="preview-heading">
-            <img
-              src="assets/icons/search.svg"
-              alt="Preview icon"
-              class="icon"
-              aria-hidden="true" />
-            Data Preview
-          </h2>
+    <main id="main-content" class="wrap">
+      <section class="page-head" aria-labelledby="page-heading">
+        <span class="kicker">Browse a session</span>
+        <h1 id="page-heading">Preview the data</h1>
+        <p>
+          Pick a trading day, filter by symbol, then download just that session.
+        </p>
+      </section>
 
-          <div class="preview-controls">
-            <div class="date-control-group">
-              <div class="date-row">
-                <div class="date-picker-group">
-                  <div class="input-group">
-                    <img
-                      src="assets/icons/calendar-month.svg"
-                      alt="Calendar icon"
-                      class="icon"
-                      aria-hidden="true" />
-                    <input
-                      type="text"
-                      id="date-picker"
-                      placeholder="Select date..." />
-                  </div>
-                </div>
-                <div class="date-navigation">
-                  <button id="prev-date" class="nav-btn" disabled>
-                    <img
-                      src="assets/icons/arrow-back.svg"
-                      alt="Previous"
-                      class="icon"
-                      aria-hidden="true" />
-                    Previous Day
-                  </button>
-                  <button id="next-date" class="nav-btn" disabled>
-                    Next Day
-                    <img
-                      src="assets/icons/arrow-forward.svg"
-                      alt="Next"
-                      class="icon"
-                      aria-hidden="true" />
-                  </button>
-                </div>
-              </div>
-            </div>
+      <section class="section" aria-labelledby="preview-heading">
+        <h2 id="preview-heading" class="visually-hidden">Data preview</h2>
 
-            <div class="search-row">
+        <div class="preview-controls">
+          <div class="date-row">
+            <div class="date-picker-group">
               <div class="input-group">
-                <label for="table-search" class="visually-hidden"
-                  >Search Table Data</label
-                >
-                <img
-                  src="assets/icons/search.svg"
-                  alt="Search"
-                  class="icon"
-                  aria-hidden="true" />
+                <img src="assets/icons/calendar-month.svg" alt="" class="icon" />
                 <input
                   type="text"
-                  id="table-search"
-                  placeholder="Filter Table Data..." />
-                <button
-                  id="clear-table-search-btn"
-                  class="clear-search-btn"
-                  title="Clear Table Search">
-                  <img
-                    src="assets/icons/close.svg"
-                    alt="Clear"
-                    class="icon"
-                    aria-hidden="true" />
-                </button>
+                  id="date-picker"
+                  placeholder="Select a trading day…" />
               </div>
+            </div>
+            <div class="date-navigation">
+              <button id="prev-date" class="nav-btn" disabled>
+                <img src="assets/icons/arrow-back.svg" alt="" class="icon" />
+                Prev
+              </button>
+              <button id="next-date" class="nav-btn" disabled>
+                Next
+                <img src="assets/icons/arrow-forward.svg" alt="" class="icon" />
+              </button>
             </div>
           </div>
 
-          <div class="table-wrapper">
-            <div id="loading-spinner" class="visually-hidden">
-              <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>
-            <div id="table-container">
-              <!-- Table will be rendered here -->
+          <div class="search-row">
+            <div class="input-group">
+              <label for="table-search" class="visually-hidden"
+                >Filter table data</label
+              >
+              <img src="assets/icons/search.svg" alt="" class="icon" />
+              <input
+                type="text"
+                id="table-search"
+                placeholder="Filter by symbol or value…" />
+              <button
+                id="clear-table-search-btn"
+                class="clear-search-btn visually-hidden"
+                title="Clear filter"
+                aria-label="Clear filter">
+                <img src="assets/icons/close.svg" alt="" class="icon" />
+              </button>
             </div>
           </div>
-          <div id="no-results-message" class="visually-hidden">
-            No matching results found.
-          </div>
-        </section>
-      </main>
-
-      <footer role="contentinfo">
-        <div class="footer-content">
-          <p>
-            Data sourced from ShareSansar. This is an unofficial data archive.
-          </p>
-          <p>
-            Made with <span aria-hidden="true">♥️</span
-            ><span class="sr-only">love</span> by
-            <a
-              href="https://github.com/OmitNomis"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visit OmitNomis GitHub profile (opens in new tab)"
-              >OmitNomis</a
-            >
-          </p>
         </div>
-      </footer>
-    </div>
+
+        <div class="result-meta" id="result-meta" hidden>
+          <div class="meta-left">
+            <span id="result-date" class="pill">&mdash;</span>
+            <span id="result-count">&mdash;</span>
+          </div>
+          <div id="download-current"></div>
+        </div>
+
+        <div class="table-wrapper">
+          <div id="loading-spinner" class="state-box visually-hidden">
+            <div class="spinner" role="status" aria-label="Loading"></div>
+            <p>Loading session&hellip;</p>
+          </div>
+          <div id="table-container">
+            <!-- Table rendered here -->
+          </div>
+        </div>
+        <div id="no-results-message" class="visually-hidden">
+          No symbols match that filter.
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Data sourced from ShareSansar. Unofficial archive, not affiliated.</p>
+        <p>
+          Made with <span class="heart" aria-hidden="true">&#10084;</span
+          ><span class="sr-only">love</span> by
+          <a
+            href="https://github.com/OmitNomis"
+            target="_blank"
+            rel="noopener noreferrer"
+            >OmitNomis</a
+          >
+        </p>
+      </div>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="js/common.js"></script>

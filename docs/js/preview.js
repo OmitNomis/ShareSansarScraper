@@ -7,51 +7,100 @@ document.addEventListener("DOMContentLoaded", () => {
   const prevDateBtn = document.getElementById("prev-date");
   const nextDateBtn = document.getElementById("next-date");
   const loadingSpinner = document.getElementById("loading-spinner");
+  const resultMeta = document.getElementById("result-meta");
+  const resultDate = document.getElementById("result-date");
+  const resultCount = document.getElementById("result-count");
+  const downloadCurrentWrap = document.getElementById("download-current");
+
+  // Columns whose value is a signed change → colour green/red.
+  const SIGNED_COLS = new Set([
+    "Diff",
+    "Diff %",
+    "Close - LTP",
+    "Close - LTP %",
+  ]);
 
   let currentData = [];
   let availableDates = [];
   let currentDateIndex = -1;
   let currentSearchTerm = "";
 
+  const escapeHtml = (s) =>
+    String(s).replace(
+      /[&<>"']/g,
+      (c) =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        }[c])
+    );
+
   const showLoading = () => {
     loadingSpinner.classList.remove("visually-hidden");
     tableContainer.innerHTML = "";
   };
-
-  const hideLoading = () => {
-    loadingSpinner.classList.add("visually-hidden");
-  };
+  const hideLoading = () => loadingSpinner.classList.add("visually-hidden");
 
   const createTable = (data) => {
     if (!data || !data.length) return "";
+    const headers = Object.keys(data[0]).filter((h) => h !== "__parsed_extra");
+    const headerRow = headers
+      .map((h) => `<th>${escapeHtml(h)}</th>`)
+      .join("");
 
-    const headers = Object.keys(data[0]);
-    const headerRow = headers.map((h) => `<th>${h}</th>`).join("");
     const rows = data
       .map((row) => {
-        return `<tr>${headers
-          .map((h) => `<td>${row[h] || ""}</td>`)
-          .join("")}</tr>`;
+        const cells = headers
+          .map((h) => {
+            const raw = row[h] == null ? "" : String(row[h]);
+            let cls = "";
+            if (h === "Symbol") {
+              cls = "col-symbol";
+            } else if (SIGNED_COLS.has(h)) {
+              const n = parseFloat(raw.replace(/,/g, "").replace(/%/g, ""));
+              if (!Number.isNaN(n) && n > 0) cls = "val-up";
+              else if (!Number.isNaN(n) && n < 0) cls = "val-down";
+            }
+            return `<td${cls ? ` class="${cls}"` : ""}>${escapeHtml(
+              raw
+            )}</td>`;
+          })
+          .join("");
+        return `<tr>${cells}</tr>`;
       })
       .join("");
 
-    return `
-            <table>
-                <thead><tr>${headerRow}</tr></thead>
-                <tbody>${rows}</tbody>
-            </table>
-        `;
+    return `<table><thead><tr>${headerRow}</tr></thead><tbody>${rows}</tbody></table>`;
   };
 
   const filterData = (searchTerm) => {
-    if (!searchTerm) {
-      return currentData;
-    }
+    if (!searchTerm) return currentData;
+    const term = searchTerm.toLowerCase();
     return currentData.filter((row) =>
       Object.values(row).some((value) =>
-        String(value).toLowerCase().includes(searchTerm.toLowerCase())
+        String(value).toLowerCase().includes(term)
       )
     );
+  };
+
+  const updateMeta = (dateKey, shown) => {
+    resultMeta.hidden = false;
+    resultDate.textContent = window.NEPSE.formatArchiveDate(dateKey);
+    const total = currentData.length;
+    resultCount.textContent =
+      shown === total
+        ? `${total.toLocaleString()} symbols`
+        : `${shown.toLocaleString()} of ${total.toLocaleString()} symbols`;
+  };
+
+  const renderCurrent = (dateKey) => {
+    const data = currentSearchTerm ? filterData(currentSearchTerm) : currentData;
+    tableContainer.innerHTML = createTable(data);
+    noResultsMessage.classList.toggle("visually-hidden", data.length > 0);
+    updateMeta(dateKey, data.length);
   };
 
   const formatDateForFile = (date) => {
@@ -62,41 +111,86 @@ document.addEventListener("DOMContentLoaded", () => {
     return `${year}_${month}_${day}`;
   };
 
-  const formatDateForDisplay = (dateStr) => {
-    return dateStr.replace(/_/g, "-");
-  };
+  const formatDateForDisplay = (dateStr) => dateStr.replace(/_/g, "-");
 
-  const addDownloadButton = (date) => {
-    const existingButton = document.querySelector(".csv-download-btn");
-    if (existingButton) {
-      existingButton.remove();
-    }
-
-    const downloadBtn = document.createElement("button");
-    downloadBtn.className = "btn btn-primary csv-download-btn";
-    downloadBtn.innerHTML = `
-        <img
-                  src="assets/icons/download.svg"
-                  alt="ZIP folder"
-                  class="icon"
-                  aria-hidden="true" />
-        Download Current CSV
-    `;
-    downloadBtn.addEventListener("click", () => {
+  const renderDownloadButton = (dateKey) => {
+    downloadCurrentWrap.innerHTML = "";
+    const btn = document.createElement("button");
+    btn.className = "btn btn-sm csv-download-btn";
+    btn.innerHTML =
+      '<img src="assets/icons/download.svg" alt="" class="icon" /> Download this CSV';
+    btn.addEventListener("click", () => {
       const link = document.createElement("a");
-      link.href = `Data/${date}.csv`;
-      link.download = `${date}.csv`;
+      link.href = `Data/${dateKey}.csv`;
+      link.download = `${dateKey}.csv`;
       link.click();
     });
+    downloadCurrentWrap.appendChild(btn);
+  };
 
-    const searchRow = document.querySelector(".search-row");
-    searchRow.after(downloadBtn);
+  const showError = (message) => {
+    hideLoading();
+    resultMeta.hidden = true;
+    downloadCurrentWrap.innerHTML = "";
+    tableContainer.innerHTML = `
+      <div class="error-message">
+        <span class="err-emoji" aria-hidden="true">⚠</span>
+        ${escapeHtml(message)}
+      </div>`;
+  };
+
+  const loadCSVData = async (dateKey) => {
+    try {
+      showLoading();
+      const response = await fetch(`Data/${dateKey}.csv`);
+      if (!response.ok) {
+        showError(`No data available for ${formatDateForDisplay(dateKey)}`);
+        return;
+      }
+      const csvText = await response.text();
+      Papa.parse(csvText, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          const data = (results.data || []).filter((r) =>
+            Object.values(r).some((v) => String(v).trim() !== "")
+          );
+          if (!data.length) {
+            showError(`No data available for ${formatDateForDisplay(dateKey)}`);
+            return;
+          }
+          currentData = data;
+          hideLoading();
+          renderCurrent(dateKey);
+          renderDownloadButton(dateKey);
+        },
+        error: (error) => {
+          console.error("Error parsing CSV:", error);
+          showError("Error parsing data");
+        },
+      });
+    } catch (error) {
+      console.error("Error loading CSV data:", error);
+      showError("Error loading data");
+    }
+  };
+
+  const updateNavigationButtons = () => {
+    prevDateBtn.disabled = currentDateIndex <= 0;
+    nextDateBtn.disabled = currentDateIndex >= availableDates.length - 1;
+  };
+
+  const goToDate = (dateKey) => {
+    currentDateIndex = availableDates.indexOf(dateKey);
+    loadCSVData(dateKey);
+    updateNavigationButtons();
   };
 
   const initializeDatePicker = async () => {
     try {
       showLoading();
       const response = await fetch("Data/list_of_csv_files.txt");
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.text();
       availableDates = data
         .trim()
@@ -106,7 +200,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .sort();
 
       if (availableDates.length === 0) {
-        hideLoading();
         showError("No data files available");
         return;
       }
@@ -120,127 +213,57 @@ document.addEventListener("DOMContentLoaded", () => {
         enable: availableDates.map((date) => formatDateForDisplay(date)),
         onChange: (selectedDates) => {
           if (selectedDates.length > 0) {
-            const selectedDate = formatDateForFile(selectedDates[0]);
-            currentDateIndex = availableDates.indexOf(selectedDate);
-            loadCSVData(selectedDate);
-            updateNavigationButtons();
-            addDownloadButton(selectedDate);
+            goToDate(formatDateForFile(selectedDates[0]));
           }
         },
       });
 
-      const urlParams = new URLSearchParams(window.location.search);
-      const dateParam = urlParams.get("date");
-
+      const dateParam = new URLSearchParams(window.location.search).get("date");
       currentDateIndex = dateParam
         ? availableDates.indexOf(dateParam)
         : availableDates.length - 1;
-
-      if (currentDateIndex === -1) currentDateIndex = availableDates.length - 1;
+      if (currentDateIndex === -1)
+        currentDateIndex = availableDates.length - 1;
 
       const initialDate = availableDates[currentDateIndex];
       fp.setDate(formatDateForDisplay(initialDate), false);
       loadCSVData(initialDate);
       updateNavigationButtons();
-      addDownloadButton(initialDate);
     } catch (error) {
       console.error("Error initializing date picker:", error);
-      hideLoading();
       showError("Error loading available dates");
     }
   };
 
-  const updateNavigationButtons = () => {
-    prevDateBtn.disabled = currentDateIndex <= 0;
-    nextDateBtn.disabled = currentDateIndex >= availableDates.length - 1;
-  };
-
-  const showError = (message) => {
-    hideLoading();
-    tableContainer.innerHTML = `
-            <div class="error-message">
-                <span class="material-symbols-outlined">error</span>
-                ${message}
-            </div>
-        `;
-  };
-
-  const loadCSVData = async (date) => {
-    try {
-      showLoading();
-      const response = await fetch(`Data/${date}.csv`);
-      if (!response.ok) {
-        showError(`No data available for ${formatDateForDisplay(date)}`);
-        return;
-      }
-
-      const csvText = await response.text();
-      Papa.parse(csvText, {
-        header: true,
-        complete: (results) => {
-          if (!results.data || results.data.length === 0) {
-            showError(`No data available for ${formatDateForDisplay(date)}`);
-            return;
-          }
-          currentData = results.data;
-
-          if (currentSearchTerm) {
-            const filteredData = filterData(currentSearchTerm);
-            tableContainer.innerHTML = createTable(filteredData);
-          } else {
-            tableContainer.innerHTML = createTable(currentData);
-          }
-          hideLoading();
-        },
-        error: (error) => {
-          console.error("Error parsing CSV:", error);
-          showError("Error parsing data");
-        },
-      });
-    } catch (error) {
-      console.error("Error loading CSV data:", error);
-      showError("Error loading data");
-    }
-  };
-
+  // --- search ---
   tableSearch.addEventListener("input", (e) => {
     currentSearchTerm = e.target.value;
-    const filteredData = filterData(currentSearchTerm);
-    tableContainer.innerHTML = createTable(filteredData);
-    noResultsMessage.classList.toggle(
-      "visually-hidden",
-      filteredData.length > 0
-    );
     clearTableSearchBtn.classList.toggle("visually-hidden", !currentSearchTerm);
+    const dateKey = availableDates[currentDateIndex];
+    renderCurrent(dateKey);
   });
 
   clearTableSearchBtn.addEventListener("click", () => {
     currentSearchTerm = "";
     tableSearch.value = "";
-    tableContainer.innerHTML = createTable(currentData);
-    noResultsMessage.classList.add("visually-hidden");
     clearTableSearchBtn.classList.add("visually-hidden");
+    renderCurrent(availableDates[currentDateIndex]);
   });
 
+  // --- date navigation ---
   prevDateBtn.addEventListener("click", () => {
     if (currentDateIndex > 0) {
-      currentDateIndex--;
-      const newDate = availableDates[currentDateIndex];
+      const newDate = availableDates[currentDateIndex - 1];
       datePicker._flatpickr.setDate(formatDateForDisplay(newDate), false);
-      loadCSVData(newDate);
-      updateNavigationButtons();
-      addDownloadButton(newDate);
+      goToDate(newDate);
     }
   });
 
   nextDateBtn.addEventListener("click", () => {
     if (currentDateIndex < availableDates.length - 1) {
-      currentDateIndex++;
-      const newDate = availableDates[currentDateIndex];
+      const newDate = availableDates[currentDateIndex + 1];
       datePicker._flatpickr.setDate(formatDateForDisplay(newDate), false);
-      loadCSVData(newDate);
-      updateNavigationButtons();
-      addDownloadButton(newDate);
+      goToDate(newDate);
     }
   });
 

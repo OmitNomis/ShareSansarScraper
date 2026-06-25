@@ -13,14 +13,14 @@
       name="keywords"
       content="NEPSE data download, NEPSE historical data, Nepal Stock Exchange bulk data, NEPSE market archive, NEPSE Excel data, NEPSE CSV download" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="sitemap"
-      type="application/xml"
-      title="Sitemap"
-      href="https://omitnomis.github.io/ShareSansarScraper/sitemap.xml" />
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet" />
     <link rel="stylesheet" href="css/styles.css" />
 
-    <!-- Added Open Graph and Twitter Card meta tags -->
+    <!-- Open Graph and Twitter Card meta tags -->
     <meta
       property="og:title"
       content="Download NEPSE Historical Data - Nepal Stock Exchange Data Archive" />
@@ -34,171 +34,163 @@
       name="twitter:description"
       content="Download NEPSE stock market data in Excel and CSV formats" />
 
-    <!-- Added canonical URL -->
     <link
       rel="canonical"
       href="https://omitnomis.github.io/ShareSansarScraper/download.html" />
+    <link
+      rel="sitemap"
+      type="application/xml"
+      title="Sitemap"
+      href="https://omitnomis.github.io/ShareSansarScraper/sitemap.xml" />
   </head>
 
   <body>
-    <div class="container">
-      <nav class="main-nav" aria-label="Main navigation">
-        <ul role="menubar">
-          <li role="none"><a role="menuitem" href="index.html">Home</a></li>
-          <li role="none">
-            <a
-              role="menuitem"
-              href="download.html"
-              class="active"
-              aria-current="page"
-              >Download Data</a
-            >
-          </li>
-          <li role="none">
-            <a role="menuitem" href="preview.html">Preview Data</a>
-          </li>
-          <li role="none"><a role="menuitem" href="about.html">About</a></li>
-        </ul>
-      </nav>
+    <a class="skip-link" href="#main-content">Skip to content</a>
 
-      <header class="hero">
-        <h1>Download NEPSE Data</h1>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">N</span>
+          <span>NEPSE<span class="brand-slash">//</span>ARCHIVE</span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="nav-links">
+          <span></span>
+        </button>
+        <nav aria-label="Main navigation">
+          <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li>
+              <a href="download.html" class="active" aria-current="page"
+                >Download</a
+              >
+            </li>
+            <li><a href="preview.html">Preview</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="wrap">
+      <section class="page-head" aria-labelledby="page-heading">
+        <span class="kicker">Get the data</span>
+        <h1 id="page-heading">Download NEPSE data</h1>
         <p>
-          Access comprehensive historical market data in Excel and CSV formats
+          Last updated:
+          <strong id="last-updated-date">Loading&hellip;</strong>
         </p>
-      </header>
+      </section>
 
-      <main id="main-content">
-        <section class="update-info" aria-labelledby="update-heading">
-          <h2 id="update-heading">
-            <img
-              src="assets/icons/calendar-month.svg"
-              alt="Calendar icon"
-              class="icon"
-              aria-hidden="true" />
-            Last Updated
-          </h2>
-          <p id="last-updated-date">Loading...</p>
-        </section>
+      <section class="section" aria-labelledby="bulk-heading">
+        <div class="section-head">
+          <span class="kicker">Bulk options</span>
+          <h2 id="bulk-heading">Grab everything at once</h2>
+        </div>
 
-        <section class="download-section">
-          <h2>
-            <img
-              src="assets/icons/download.svg"
-              alt="Download icon"
-              class="icon"
-              aria-hidden="true" />
-            Download Options
-          </h2>
+        <div class="grid grid-2">
+          <article class="card dl-card">
+            <span class="dl-eyebrow">Single file &middot; .xlsx</span>
+            <h3>Complete Excel workbook</h3>
+            <p>
+              The entire history with one worksheet per trading day. Best for
+              spreadsheets and quick analysis.
+            </p>
+            <a
+              href="Data/combined_excel.xlsx"
+              download
+              class="btn btn-primary"
+              role="button">
+              <img src="assets/icons/download.svg" alt="" class="icon" />
+              Download Excel
+            </a>
+          </article>
 
-          <div class="download-cards">
-            <div class="download-card">
-              <h3>Complete Dataset (Excel)</h3>
-              <p>All historical data in a single Excel file</p>
-              <a
-                href="Data/combined_excel.xlsx"
-                download
-                class="btn btn-primary"
-                role="button">
-                <img
-                  src="assets/icons/download.svg"
-                  alt="Download icon"
-                  class="icon"
-                  aria-hidden="true" />
-                Download Excel
-              </a>
+          <article class="card dl-card">
+            <span class="dl-eyebrow">Zipped &middot; many .csv</span>
+            <h3>All CSVs as a ZIP</h3>
+            <p>
+              Every daily CSV bundled in your browser. Heads up: this fetches
+              hundreds of files, so give it a moment.
+            </p>
+            <button id="download-csvs-btn" class="btn btn-cyan">
+              <img src="assets/icons/folder-zip.svg" alt="" class="icon" />
+              Build &amp; download ZIP
+            </button>
+            <div class="progress" id="download-progress" hidden>
+              <div class="progress-meta">
+                <span id="progress-text">Starting&hellip;</span>
+                <span id="progress-pct">0%</span>
+              </div>
+              <div
+                class="progress-bar"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0">
+                <span id="progress-fill"></span>
+              </div>
             </div>
+          </article>
+        </div>
+      </section>
 
-            <div class="download-card">
-              <h3>CSV Collection</h3>
-              <p>Individual CSV files for each trading day</p>
-              <button
-                id="download-csvs-btn"
-                class="btn btn-primary"
-                aria-label="Download all CSV files as ZIP">
-                <img
-                  src="assets/icons/folder-zip.svg"
-                  alt="ZIP folder"
-                  class="icon"
-                  aria-hidden="true" />
-                Download All CSVs (ZIP)
-              </button>
-              <span id="download-progress" class="visually-hidden"
-                >Downloading...
-                <img
-                  src="assets/icons/hourglass.svg"
-                  alt="Loading"
-                  class="icon"
-                  aria-hidden="true" />
-              </span>
-            </div>
-          </div>
-        </section>
+      <section class="section" aria-labelledby="files-heading">
+        <div class="section-head">
+          <span class="kicker">Pick a day</span>
+          <h2 id="files-heading">Individual CSV files</h2>
+          <p>Search by date, preview it, or download a single session.</p>
+        </div>
 
-        <section class="csv-list-section">
-          <h2>
-            <img
-              src="assets/icons/table.svg"
-              alt="Table icon"
-              class="icon"
-              aria-hidden="true" />
-            Individual CSV Files
-          </h2>
-          <p>Download data for specific dates</p>
-
-          <div id="csv-list-container">
+        <div class="browser">
+          <div class="browser-bar">
             <div class="input-group" id="search-bar-container">
               <label for="search-csv" class="visually-hidden"
-                >Search CSV Files</label
+                >Search CSV files</label
               >
-              <img
-                src="assets/icons/search.svg"
-                alt="Search"
-                class="icon"
-                aria-hidden="true" />
+              <img src="assets/icons/search.svg" alt="" class="icon" />
               <input
                 type="text"
                 id="search-csv"
-                placeholder="Search CSV Files..." />
+                placeholder="Search by date e.g. 2026_06" />
               <button
                 id="clear-search-btn"
                 class="clear-search-btn visually-hidden"
-                title="Clear Search">
-                <img
-                  src="assets/icons/close.svg"
-                  alt="Clear"
-                  class="icon"
-                  aria-hidden="true" />
+                title="Clear search"
+                aria-label="Clear search">
+                <img src="assets/icons/close.svg" alt="" class="icon" />
               </button>
             </div>
-            <div class="scrollable-list">
-              <ul id="csv-files-list" role="list">
-                <!-- CSV files will be listed here -->
-              </ul>
-            </div>
+            <span class="file-count" id="file-count">&mdash; files</span>
           </div>
-        </section>
-      </main>
-
-      <footer role="contentinfo">
-        <div class="footer-content">
-          <p>
-            Data sourced from ShareSansar. This is an unofficial data archive.
-          </p>
-          <p>
-            Made with <span aria-hidden="true">♥️</span
-            ><span class="sr-only">love</span> by
-            <a
-              href="https://github.com/OmitNomis"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visit OmitNomis GitHub profile (opens in new tab)"
-              >OmitNomis</a
-            >
-          </p>
+          <div class="scrollable-list">
+            <ul id="csv-files-list" role="list">
+              <li class="list-empty">Loading file list&hellip;</li>
+            </ul>
+          </div>
         </div>
-      </footer>
-    </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Data sourced from ShareSansar. Unofficial archive, not affiliated.</p>
+        <p>
+          Made with <span class="heart" aria-hidden="true">&#10084;</span
+          ><span class="sr-only">love</span> by
+          <a
+            href="https://github.com/OmitNomis"
+            target="_blank"
+            rel="noopener noreferrer"
+            >OmitNomis</a
+          >
+        </p>
+      </div>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>

@@ -13,14 +13,14 @@
       name="keywords"
       content="NEPSE historical data, NEPSE data download, Nepal Stock Exchange data dump, bulk NEPSE data, NEPSE market archive, NEPSE stock data, NEPSE trading data, ShareSansar NEPSE data, Nepal financial data, NEPSE market indicators, NEPSE trading volume, NEPSE price movements" />
 
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="sitemap"
-      type="application/xml"
-      title="Sitemap"
-      href="https://omitnomis.github.io/ShareSansarScraper/sitemap.xml" />
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
 
-    <!-- Added Open Graph and Twitter Card meta tags -->
+    <!-- Open Graph and Twitter Card meta tags -->
     <meta
       property="og:title"
       content="NEPSE Historical Data Archive - Download Nepal Stock Exchange Data" />
@@ -34,11 +34,9 @@
       name="twitter:description"
       content="Access and download historical NEPSE stock market data" />
 
-    <!-- Added canonical URL -->
     <link
       rel="canonical"
       href="https://omitnomis.github.io/ShareSansarScraper/" />
-
     <link
       rel="sitemap"
       type="application/xml"
@@ -47,103 +45,188 @@
   </head>
 
   <body>
-    <div class="container">
-      <nav class="main-nav" aria-label="Main navigation">
-        <ul role="menubar">
-          <li role="none">
-            <a
-              role="menuitem"
-              href="index.html"
-              class="active"
-              aria-current="page"
-              >Home</a
-            >
-          </li>
-          <li role="none">
-            <a role="menuitem" href="download.html">Download Data</a>
-          </li>
-          <li role="none">
-            <a role="menuitem" href="preview.html">Preview Data</a>
-          </li>
-          <li role="none"><a role="menuitem" href="about.html">About</a></li>
-        </ul>
-      </nav>
+    <a class="skip-link" href="#main-content">Skip to content</a>
 
-      <header class="hero">
-        <h1>NEPSE Historical Data Archive</h1>
-        <p>Comprehensive Nepal Stock Exchange historical data archive</p>
-      </header>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">N</span>
+          <span>NEPSE<span class="brand-slash">//</span>ARCHIVE</span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="nav-links">
+          <span></span>
+        </button>
+        <nav aria-label="Main navigation">
+          <ul class="nav-links" id="nav-links">
+            <li>
+              <a href="index.html" class="active" aria-current="page">Home</a>
+            </li>
+            <li><a href="download.html">Download</a></li>
+            <li><a href="preview.html">Preview</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-      <main id="main-content">
-        <section class="features" aria-labelledby="features-heading">
-          <h2 id="features-heading">What We Offer</h2>
-          <div class="feature-grid">
-            <div class="feature-card">
-              <img
-                src="assets/icons/download.svg"
-                alt="Download icon"
-                class="icon"
-                aria-hidden="true" />
-              <h3>Bulk Downloads</h3>
-              <p>Download complete historical data in Excel or CSV format</p>
-              <a href="download.html" class="btn btn-primary">Download Now</a>
+    <main id="main-content" class="wrap">
+      <section class="hero" aria-labelledby="hero-heading">
+        <span class="kicker">Unofficial NEPSE data dump</span>
+        <h1 id="hero-heading">
+          Every trading day on the <mark>Nepal Stock Exchange</mark>, archived.
+        </h1>
+        <p class="lede">
+          Daily price tables scraped from ShareSansar, free to preview and
+          download in CSV &amp; Excel. No login. No paywall. No nonsense.
+        </p>
+        <div class="hero-actions">
+          <a href="download.html" class="btn btn-primary">
+            <img src="assets/icons/download.svg" alt="" class="icon" />
+            Download the data
+          </a>
+          <a href="preview.html" class="btn btn-secondary">
+            <img src="assets/icons/search.svg" alt="" class="icon" />
+            Preview a session
+          </a>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="Latest session top movers" id="ticker">
+        <div class="ticker-label"><span class="dot"></span> Top&nbsp;Movers</div>
+        <div class="ticker-track" id="ticker-track">
+          <span class="ticker-item">Loading latest session&hellip;</span>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="Archive statistics">
+        <div class="stat">
+          <div class="stat-num" id="stat-days">&mdash;</div>
+          <div class="stat-label">Trading days archived</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="stat-symbols">&mdash;</div>
+          <div class="stat-label">Symbols last session</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="stat-since">&mdash;</div>
+          <div class="stat-label">Archiving since</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">DAILY</div>
+          <div class="stat-label">Auto-updated 5PM NPT</div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="features-heading">
+        <div class="section-head">
+          <span class="kicker">What you get</span>
+          <h2 id="features-heading">Three ways in</h2>
+        </div>
+        <div class="grid grid-3">
+          <article class="card feature">
+            <div class="feature-icon">
+              <img src="assets/icons/download.svg" alt="" class="icon" />
             </div>
+            <h3>Bulk downloads</h3>
+            <p>
+              Grab the entire history as a single Excel workbook or a ZIP of
+              daily CSVs.
+            </p>
+            <a href="download.html" class="btn btn-cyan btn-sm">Download now</a>
+          </article>
 
-            <div class="feature-card">
-              <img
-                src="assets/icons/search.svg"
-                alt="Preview icon"
-                class="icon"
-                aria-hidden="true" />
-              <h3>Data Preview</h3>
-              <p>View and filter data before downloading</p>
-              <a href="preview.html" class="btn btn-primary">Preview Data</a>
+          <article class="card feature">
+            <div class="feature-icon">
+              <img src="assets/icons/search.svg" alt="" class="icon" />
             </div>
+            <h3>Data preview</h3>
+            <p>
+              Browse any session in a sortable table, filter by symbol, then
+              grab just that day.
+            </p>
+            <a href="preview.html" class="btn btn-pink btn-sm">Preview data</a>
+          </article>
 
-            <div class="feature-card">
-              <img
-                src="assets/icons/calendar-month.svg"
-                alt="Calendar icon"
-                class="icon"
-                aria-hidden="true" />
-              <h3>Regular Updates</h3>
-              <p>Data updated regularly from ShareSansar</p>
-              <p id="last-updated-date">Last updated: Loading...</p>
+          <article class="card feature">
+            <div class="feature-icon">
+              <img src="assets/icons/calendar-month.svg" alt="" class="icon" />
             </div>
-          </div>
-        </section>
-
-        <section class="cta">
-          <h2>Start Exploring NEPSE Data</h2>
-          <p>Access comprehensive historical market data for your analysis</p>
-          <div class="button-group">
-            <a href="download.html" class="btn btn-primary">Download Data</a>
-            <a href="about.html" class="btn btn-secondary"
-              >Click Here For Info About The App</a
-            >
-          </div>
-        </section>
-      </main>
-
-      <footer role="contentinfo">
-        <div class="footer-content">
-          <p>
-            Data sourced from ShareSansar. This is an unofficial data archive.
+            <h3>Regular updates</h3>
+            <p>
+              A GitHub Action scrapes ShareSansar every trading evening &mdash;
+              the archive keeps itself current.
+            </p>
+            <p class="tag">
+            Last updated:
+            <span id="last-updated-date">loading&hellip;</span>
           </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="cols-heading">
+        <div class="section-head">
+          <span class="kicker">Inside every file</span>
+          <h2 id="cols-heading">The whole price table</h2>
           <p>
-            Made with <span aria-hidden="true">♥️</span
-            ><span class="sr-only">love</span> by
-            <a
-              href="https://github.com/OmitNomis"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visit OmitNomis GitHub profile (opens in new tab)"
-              >OmitNomis</a
-            >
+            Each daily CSV mirrors the full ShareSansar &ldquo;today&rsquo;s
+            share price&rdquo; table &mdash; OHLC, volume, turnover and more.
           </p>
         </div>
-      </footer>
-    </div>
+        <div class="tag-list">
+          <span class="tag">Symbol</span>
+          <span class="tag">Open</span>
+          <span class="tag">High</span>
+          <span class="tag">Low</span>
+          <span class="tag">Close</span>
+          <span class="tag">LTP</span>
+          <span class="tag">VWAP</span>
+          <span class="tag">Volume</span>
+          <span class="tag">Prev. Close</span>
+          <span class="tag">Turnover</span>
+          <span class="tag">Transactions</span>
+          <span class="tag">Diff</span>
+          <span class="tag">Diff %</span>
+          <span class="tag">Range</span>
+          <span class="tag">120 / 180 Days</span>
+          <span class="tag">52W High</span>
+          <span class="tag">52W Low</span>
+        </div>
+      </section>
+
+      <section class="cta" aria-labelledby="cta-heading">
+        <h2 id="cta-heading">Start digging</h2>
+        <p>Grab the full archive or explore a single session — your call.</p>
+        <div class="button-group">
+          <a href="download.html" class="btn btn-primary">Download data</a>
+          <a href="about.html" class="btn btn-secondary">What is this?</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Data sourced from ShareSansar. Unofficial archive, not affiliated.</p>
+        <p>
+          Made with <span class="heart" aria-hidden="true">&#10084;</span
+          ><span class="sr-only">love</span> by
+          <a
+            href="https://github.com/OmitNomis"
+            target="_blank"
+            rel="noopener noreferrer"
+            >OmitNomis</a
+          >
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="js/common.js"></script>
+    <script src="js/home.js"></script>
   </body>
 </html>

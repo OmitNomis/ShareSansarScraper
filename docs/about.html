@@ -6,8 +6,18 @@
     <title>
       About NEPSE Data Archive - Nepal Stock Exchange Historical Data
     </title>
+    <meta
+      name="description"
+      content="Learn about the NEPSE historical data archive project. Access comprehensive Nepal Stock Exchange data for market analysis and research." />
 
-    <!-- Added Open Graph and Twitter Card meta tags -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Open Graph and Twitter Card meta tags -->
     <meta
       property="og:title"
       content="About NEPSE Data Archive - Nepal Stock Exchange Historical Data" />
@@ -21,113 +31,130 @@
       name="twitter:description"
       content="Comprehensive NEPSE historical data archive for market analysis and research" />
 
-    <!-- Added canonical URL -->
     <link
       rel="canonical"
       href="https://omitnomis.github.io/ShareSansarScraper/about" />
-
     <link
       rel="sitemap"
       type="application/xml"
       title="Sitemap"
       href="https://omitnomis.github.io/ShareSansarScraper/sitemap.xml" />
-    <link rel="stylesheet" href="css/styles.css" />
   </head>
+
   <body>
-    <div class="container">
-      <nav class="main-nav" aria-label="Main navigation">
-        <ul role="menubar">
-          <li role="none"><a role="menuitem" href="index.html">Home</a></li>
-          <li role="none">
-            <a role="menuitem" href="download.html">Download Data</a>
-          </li>
-          <li role="none">
-            <a role="menuitem" href="preview.html">Preview Data</a>
-          </li>
-          <li role="none">
-            <a
-              role="menuitem"
-              href="about.html"
-              class="active"
-              aria-current="page"
-              >About</a
-            >
-          </li>
-        </ul>
-      </nav>
+    <a class="skip-link" href="#main-content">Skip to content</a>
 
-      <header class="hero">
-        <h1>About NEPSE Data Archive</h1>
-        <p>Understanding our Nepal Stock Exchange data archive initiative</p>
-      </header>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">N</span>
+          <span>NEPSE<span class="brand-slash">//</span>ARCHIVE</span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="nav-links">
+          <span></span>
+        </button>
+        <nav aria-label="Main navigation">
+          <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="download.html">Download</a></li>
+            <li><a href="preview.html">Preview</a></li>
+            <li>
+              <a href="about.html" class="active" aria-current="page">About</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-      <main id="main-content">
-        <section class="about-section" aria-labelledby="project-overview">
-          <h2 id="project-overview">
-            <img
-              src="assets/icons/info.svg"
-              alt="Info icon"
-              class="icon"
-              aria-hidden="true" />
-            Project Overview
-          </h2>
-          <article class="content-card">
-            <h3>What We Do</h3>
+    <main id="main-content" class="wrap">
+      <section class="page-head" aria-labelledby="page-heading">
+        <span class="kicker">The backstory</span>
+        <h1 id="page-heading">About this archive</h1>
+        <p>What this project is, where the data comes from, and the fine print.</p>
+      </section>
+
+      <section class="section" aria-labelledby="about-heading">
+        <div class="section-head">
+          <span class="kicker">Project overview</span>
+          <h2 id="about-heading">An open dump of NEPSE history</h2>
+        </div>
+
+        <div class="about-grid">
+          <article class="card content-card">
+            <h3>What we do</h3>
             <p>
               This project archives historical NEPSE (Nepal Stock Exchange) data
-              from ShareSansar, making it easily accessible for:
+              from ShareSansar and makes it freely accessible for:
             </p>
             <ul>
               <li>Market analysis and research</li>
               <li>Historical trend analysis</li>
               <li>Data-driven investment decisions</li>
-              <li>Academic and educational purposes</li>
+              <li>Academic and educational use</li>
             </ul>
           </article>
 
-          <article class="content-card">
-            <h3>Data Source</h3>
+          <article class="card content-card">
+            <h3>How it works</h3>
             <p>
-              All data is sourced from ShareSansar, a leading financial news
-              portal in Nepal. This is an unofficial archive project and is not
-              affiliated with ShareSansar or NEPSE.
+              A Scrapy spider runs on a daily GitHub Action, pulls the latest
+              &ldquo;today&rsquo;s share price&rdquo; table, saves it as a dated
+              CSV, and rebuilds the combined Excel workbook &mdash; all committed
+              straight back to the repo.
             </p>
           </article>
 
-          <article class="content-card">
-            <h3>Updates & Maintenance</h3>
+          <article class="card content-card">
+            <h3>Data source</h3>
             <p>
-              The data is updated regularly to ensure you have access to the
-              latest market information. However, please note:
+              All data is sourced from ShareSansar, a leading financial portal in
+              Nepal. This is an unofficial archive and is not affiliated with
+              ShareSansar or NEPSE.
             </p>
+          </article>
+
+          <article class="card content-card callout">
+            <h3>The fine print</h3>
             <ul>
               <li>This is an unofficial archive</li>
-              <li>Data accuracy depends on the source</li>
-              <li>Use the data at your own discretion</li>
+              <li>Accuracy depends entirely on the source</li>
+              <li>Not financial advice &mdash; use at your own discretion</li>
             </ul>
           </article>
-        </section>
-      </main>
-
-      <footer role="contentinfo">
-        <div class="footer-content">
-          <p>
-            Data sourced from ShareSansar. This is an unofficial data archive.
-          </p>
-          <p>
-            Made with <span aria-hidden="true">♥️</span
-            ><span class="sr-only">love</span> by
-            <a
-              href="https://github.com/OmitNomis"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visit OmitNomis GitHub profile (opens in new tab)"
-              >OmitNomis</a
-            >
-          </p>
         </div>
-      </footer>
-    </div>
+      </section>
+
+      <section class="cta" aria-labelledby="cta-heading">
+        <h2 id="cta-heading">Dig in</h2>
+        <p>Preview a session or pull the whole archive.</p>
+        <div class="button-group">
+          <a href="preview.html" class="btn btn-primary">Preview data</a>
+          <a href="download.html" class="btn btn-secondary">Download data</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Data sourced from ShareSansar. Unofficial archive, not affiliated.</p>
+        <p>
+          Made with <span class="heart" aria-hidden="true">&#10084;</span
+          ><span class="sr-only">love</span> by
+          <a
+            href="https://github.com/OmitNomis"
+            target="_blank"
+            rel="noopener noreferrer"
+            >OmitNomis</a
+          >
+        </p>
+      </div>
+    </footer>
+
     <script src="js/common.js"></script>
   </body>
 </html>
