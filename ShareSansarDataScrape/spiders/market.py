@@ -38,18 +38,66 @@ class TableSpider(scrapy.Spider):
             if any(cells):
                 table_data.append(cells)
 
-        # Converting the table_data list into a DataFrame
-        df = pd.DataFrame(table_data)
+        # Guard: a header-only scrape means the page had no price rows
+        # (rendering error, layout change, etc.) — never write an empty file.
+        if len(table_data) <= 1:
+            self.logger.warning(
+                'Scraped table has no data rows; skipping write (nothing to archive).'
+            )
+            return
 
-        # Generating the filename based on the current date
+        # Guard: NEPSE is closed on weekends and public holidays, on which
+        # ShareSansar keeps showing the previous trading session. That scrape is
+        # byte-for-byte identical to the latest CSV we already have, so skip it
+        # instead of committing a duplicate day. (No hardcoded holiday calendar
+        # needed — the data itself tells us nothing new happened.)
         date_str = datetime.now().strftime('%Y_%m_%d')
         file_path = f'docs/Data/{date_str}.csv'
+        if self.is_duplicate_of_latest(table_data, skip_file=f'{date_str}.csv'):
+            self.logger.info(
+                'Scraped data matches the latest archived session (market likely '
+                'closed); skipping write.'
+            )
+            return
+
+        # Converting the table_data list into a DataFrame
+        df = pd.DataFrame(table_data)
 
         # Saving the DataFrame to a CSV file
         df.to_csv(file_path, header=False, index=False)
 
         # combine all csv to single excel with worksheets
         self.update_combined_excel()
+
+    @staticmethod
+    def rows_without_serial(rows):
+        # Drop the leading S.No column so identical sessions compare equal even
+        # if the serial numbering ever shifts.
+        return [tuple(str(c) for c in row[1:]) for row in rows]
+
+    def is_duplicate_of_latest(self, table_data, skip_file):
+        """True when the freshly scraped table equals the most recent CSV."""
+        data_dir = 'docs/Data'
+        if not os.path.isdir(data_dir):
+            return False
+        existing = sorted(
+            f for f in os.listdir(data_dir)
+            if f.endswith('.csv') and f != skip_file
+        )
+        if not existing:
+            return False
+
+        latest_path = os.path.join(data_dir, existing[-1])
+        try:
+            prev = pd.read_csv(
+                latest_path, header=None, dtype=str, keep_default_na=False
+            ).values.tolist()
+        except Exception as e:
+            self.logger.warning(f'Could not read {latest_path} for dedupe: {e}')
+            return False
+
+        # Compare data rows only (skip the header row in each), ignoring S.No.
+        return self.rows_without_serial(table_data[1:]) == self.rows_without_serial(prev[1:])
 
     def update_combined_excel(self):
         csv_files = [file for file in os.listdir('docs/Data') if file.endswith('.csv')]

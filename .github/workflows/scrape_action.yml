@@ -24,9 +24,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
           restore-keys: |
-            ${{ runner.os }}-poetry-
+            ${{ runner.os }}-pip-
 
       - name: Install dependencies
         run: |
@@ -36,10 +36,14 @@ jobs:
       - name: Run spider
         run: scrapy crawl market
 
+      - name: Build site data
+        run: python build_site_data.py
+
       - name: Commit and Push Files
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -am "Share data has been successfully scrapped"
+          git add -A
+          # No-op cleanly on days the market was closed (nothing new to commit).
+          git diff --staged --quiet || git commit -m "Share data has been successfully scrapped"
           git push origin master
