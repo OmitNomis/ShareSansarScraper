@@ -1,102 +1,100 @@
-# **Automated Web Scraping with Scrapy**
+# ShareSansar Scraper — NEPSE Historical Data Archive
 
-This project automates the scraping of data from the website `https://www.sharesansar.com/today-share-price` using Scrapy, a web crawling and scraping framework for Python. The scraped data is then saved into a CSV file. The CSV files are also combined to generate an excel file that updates everyday adding a worksheet with the current day's data.
+A self-updating archive of daily share prices from the Nepal Stock Exchange (NEPSE). A [Scrapy](https://scrapy.org/) spider scrapes the [ShareSansar today's-share-price page](https://www.sharesansar.com/today-share-price) every trading day via GitHub Actions, saves each day as a CSV, and rolls everything into a single Excel workbook.
 
-**Note:** If you're interested in accessing the data directly without running any code, you can download all the CSV or the latest combined Excel file [here](https://OmitNomis.github.io/ShareSansarScraper).
+## 🌐 Live site
+
+**Browse and download the data here — no code required:**
+
+### 👉 https://omitnomis.github.io/ShareSansarScraper/
+
+The site (served by GitHub Pages from the [`docs/`](./docs) folder) lets you:
+
+- **Preview** any trading day's prices online
+- **Download** individual days as CSV
+- **Download** the full history as a single combined Excel file
+
+Data goes back to March 2024 and updates automatically every trading day.
 
 ---
 
-## **Setup:**
+## How it works
 
-### - Ensure you have Python installed on your system:
+1. A scheduled GitHub Action runs the Scrapy spider once a day.
+2. The spider scrapes the share-price table and writes it to `docs/Data/YYYY_MM_DD.csv`.
+3. All CSVs are merged into `docs/Data/combined_excel.xlsx`, one worksheet per day (latest first).
+4. The Action commits the new files, which publishes them to the live GitHub Pages site.
 
-Make sure Python is installed. You can download the latest version of Python from the official [Python website](https://www.python.org/downloads/).
+## Project structure
 
-### - **Clone the repository:**
-
-Clone the project repository from GitHub:
-
-```bash
-git clone git@github.com:OmitNomis/ShareSansarScraper.git
+```
+ShareSansarScraper/
+├── docs/                         # GitHub Pages site + scraped data
+│   ├── index.html                #   landing / browse page
+│   ├── download.html             #   download page
+│   ├── preview.html              #   per-day preview
+│   └── Data/                     #   scraped output
+│       ├── YYYY_MM_DD.csv        #     one CSV per trading day
+│       └── combined_excel.xlsx   #     all days as Excel worksheets
+├── ShareSansarDataScrape/
+│   ├── settings.py               # Scrapy settings
+│   └── spiders/market.py         # the "market" spider
+├── .github/workflows/scrape_action.yml  # daily automation
+└── requirements.txt
 ```
 
-Navigate to the project directory:
+---
+
+## Running it yourself
+
+### Prerequisites
+
+[Python](https://www.python.org/downloads/) installed on your system.
+
+### 1. Clone the repository
 
 ```bash
+git clone https://github.com/OmitNomis/ShareSansarScraper.git
 cd ShareSansarScraper
 ```
 
-### - **Set up a virtual environment (optional but recommended):**
-
-Create a virtual environment to keep your project dependencies isolated:
+### 2. Set up a virtual environment (recommended)
 
 ```bash
 python -m venv venv
 ```
 
-Activate the virtual environment:
+Activate it:
 
-- On Windows:
-  ```bash
-  venv\Scripts\activate
-  ```
-- On macOS/Linux:
+- **Windows:** `venv\Scripts\activate`
+- **macOS / Linux:** `source venv/bin/activate`
 
-  ```bash
-  source venv/bin/activate
-  ```
-
-### - **Install project dependencies:**
-
-Install the necessary dependencies listed in the `requirements.txt` file:
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## **Execution:**
+### 4. Run the scraper
 
-- The Scrapy spider named `market` is configured to scrape data from the specified URL (`https://www.sharesansar.com/today-share-price`).
-- To run the scraper manually, execute the following command in your terminal within the project directory:
-  ```
-  scrapy crawl market
-  ```
-  This command will trigger the spider to scrape data from the website.
+```bash
+scrapy crawl market
+```
 
-## **Notes:**
+This scrapes the current day's prices, saves `docs/Data/YYYY_MM_DD.csv`, and updates `docs/Data/combined_excel.xlsx`.
 
-- The scraped data is stored in a CSV file with the naming convention `YYYY_MM_DD.csv` in the `Data` directory within your project.
-- After each CSV is downloaded, CSV files, including the new one is combined to generate an excel file containing all CSV as worksheets.
-- The script utilizes the `datetime.now()` function to generate the current date in the format specified.
+---
 
-## Workflow Explaination
+## Automation
 
-The scraping process is automated through a GitHub workflow [scrape_action.yml](./.github/workflows/scrape_action.yml). Here is an explanation of the workflow:
+The daily scrape is handled by [`.github/workflows/scrape_action.yml`](./.github/workflows/scrape_action.yml):
 
-- **name**: This is the name of the workflow, "Run Spider," which describes the purpose of the workflow.
+- **Schedule:** runs every day at 11:15 AM UTC (5:00 PM Nepal Time) via cron.
+- **On push:** also runs on every push to `master`.
+- **Steps:** checks out the repo → sets up Python 3.10 → caches & installs dependencies → runs the `market` spider → commits and pushes the new data back to `master`.
 
-- **on**: This section specifies the events that trigger the workflow.
+Because the data lives in `docs/`, every successful run instantly updates the live site.
 
-  - **push**: The workflow runs every time there is a push to the `master` branch.
-  - **schedule**: The workflow is also scheduled to run every day at 11:15 AM UTC (which is 5:00 PM Nepal Time) using a cron expression.
+## License
 
-- **jobs**: This section defines the job to be run, named `run_spider`.
-
-  - **runs-on**: Specifies that the job will run on the latest version of an Ubuntu runner.
-
-- **steps**: This section contains a sequence of steps to be executed in the job.
-  - **Checkout code**: This step uses the `actions/checkout@v3` action to check out the code from the repository, allowing the subsequent steps to access the codebase.
-  - **Set up Python**: This step uses the `actions/setup-python@v4` action to set up Python version 3.10 on the runner.
-  - **Cache dependencies**: This step uses the `actions/cache@v3` action to cache Python dependencies, speeding up subsequent runs.
-    - **path**: Specifies the path to the pip cache.
-    - **key**: Defines a unique key for the cache based on the operating system and the hash of the `poetry.lock` file.
-    - **restore-keys**: Provides a list of keys to try when restoring the cache if an exact match is not found.
-  - **Install dependencies**: This step installs the required Python packages.
-    - It first upgrades `pip` to the latest version.
-    - Then it installs the dependencies listed in the `requirements.txt` file.
-  - **Run spider**: This step runs the Scrapy spider named `market` to scrape data from the specified website.
-  - **Commit and Push Files**: This step commits and pushes the changes to the repository.
-    - It configures Git with the provided user email and name.
-    - Adds all changes to the Git staging area.
-    - Commits the changes with the message "Share data has been successfully scrapped."
-    - Pushes the committed changes to the `master` branch of the repository.
+See [LICENSE](./LICENSE).
