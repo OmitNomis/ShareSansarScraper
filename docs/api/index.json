@@ -1,0 +1,32 @@
+{
+  "name": "NEPSE // Archive — JSON API",
+  "description": "Read-only JSON snapshots of NEPSE (Nepal Stock Exchange) daily share-price data, regenerated every trading day from the CSV archive. No auth, no rate limits; served as static files from GitHub Pages.",
+  "base": "https://omitnomis.github.io/ShareSansarScraper/api/",
+  "updated": "every trading day, ~5:00 PM Nepal time",
+  "endpoints": {
+    "meta": {
+      "path": "meta.json",
+      "description": "Archive-wide stats: lastUpdated, firstDate, tradingDays, symbols, symbolsLatest."
+    },
+    "symbols": {
+      "path": "symbols.json",
+      "description": "Array of every symbol ever traded, sorted."
+    },
+    "latest": {
+      "path": "latest.json",
+      "description": "Most recent session: { date, count, rows[] }; each row is a normalized record (symbol, open, high, low, close, ltp, vwap, vol, prevClose, turnover, trans, diffPct, high52, low52)."
+    },
+    "history": {
+      "path": "history/{SYMBOL}.json",
+      "example": "history/NABIL.json",
+      "description": "Per-symbol time series in compact columnar form: { symbol, cols, rows }. cols = [d, o, h, l, c, ltp, vwap, vol, to, dp] = date, open, high, low, close, LTP, VWAP, volume, turnover, diff %."
+    },
+    "recap": {
+      "path": "recap/latest.json",
+      "description": "Latest-session highlights: symbols, advances, declines, unchanged, totalTurnover, totalTransactions, topGainers, topLosers, mostActive, and a plain-text headline."
+    }
+  },
+  "notes": "ltp falls back to close for sessions older than the LTP column. Numbers are JSON numbers (commas/percent signs stripped).",
+  "license": "Data sourced from ShareSansar. Unofficial archive, not affiliated with ShareSansar or NEPSE.",
+  "source": "https://github.com/OmitNomis/ShareSansarScraper"
+}

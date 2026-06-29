@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      NEPSE Stock Charts — Price History for Nepal Stock Exchange Symbols
+    </title>
+    <meta
+      name="description"
+      content="Chart the full price history of any NEPSE (Nepal Stock Exchange) symbol — close, LTP and volume since 2024 — and compare two stocks side by side. Free, no login." />
+    <meta
+      name="keywords"
+      content="NEPSE chart, NEPSE stock chart, NEPSE price history, Nepal Stock Exchange chart, NEPSE share price chart, compare NEPSE stocks, NEPSE technical chart, NEPSE historical chart, NEPSE LTP chart, NEPSE volume" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="author" content="OmitNomis" />
+    <meta name="theme-color" content="#bcff3c" />
+    <meta name="geo.region" content="NP" />
+    <meta name="geo.placename" content="Nepal" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <!-- Open Graph and Twitter Card meta tags -->
+    <meta property="og:site_name" content="NEPSE // Archive" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="NEPSE Stock Charts — Price History for Nepal Stock Exchange Symbols" />
+    <meta
+      property="og:description"
+      content="Chart the full price history of any NEPSE symbol and compare two stocks side by side. Free, no login." />
+    <meta
+      property="og:url"
+      content="https://omitnomis.github.io/ShareSansarScraper/stock.html" />
+    <meta
+      property="og:image"
+      content="https://omitnomis.github.io/ShareSansarScraper/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="NEPSE // Archive — Nepal Stock Exchange share-price history, free to download" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="NEPSE Stock Charts — Nepal Stock Exchange Price History" />
+    <meta
+      name="twitter:description"
+      content="Chart any NEPSE symbol's price history and compare two stocks. Free, no login." />
+    <meta
+      name="twitter:image"
+      content="https://omitnomis.github.io/ShareSansarScraper/assets/og-image.png" />
+    <meta
+      name="twitter:image:alt"
+      content="NEPSE // Archive — Nepal Stock Exchange share-price history" />
+
+    <link
+      rel="canonical"
+      href="https://omitnomis.github.io/ShareSansarScraper/stock.html" />
+    <link
+      rel="sitemap"
+      type="application/xml"
+      title="Sitemap"
+      href="https://omitnomis.github.io/ShareSansarScraper/sitemap.xml" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://omitnomis.github.io/ShareSansarScraper/#website",
+          "url": "https://omitnomis.github.io/ShareSansarScraper/",
+          "name": "NEPSE // Archive",
+          "alternateName": "NEPSE Historical Data Archive",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://omitnomis.github.io/ShareSansarScraper/#org" }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://omitnomis.github.io/ShareSansarScraper/#org",
+          "name": "NEPSE // Archive",
+          "url": "https://omitnomis.github.io/ShareSansarScraper/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://omitnomis.github.io/ShareSansarScraper/assets/icon-512.png",
+            "width": 512,
+            "height": 512
+          },
+          "sameAs": [
+            "https://github.com/OmitNomis/ShareSansarScraper",
+            "https://github.com/OmitNomis"
+          ]
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://omitnomis.github.io/ShareSansarScraper/stock.html#webpage",
+          "url": "https://omitnomis.github.io/ShareSansarScraper/stock.html",
+          "name": "NEPSE Stock Charts — Price History for Nepal Stock Exchange Symbols",
+          "isPartOf": { "@id": "https://omitnomis.github.io/ShareSansarScraper/#website" },
+          "about": { "@id": "https://omitnomis.github.io/ShareSansarScraper/#dataset" },
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://omitnomis.github.io/ShareSansarScraper/assets/og-image.png"
+          },
+          "inLanguage": "en",
+          "breadcrumb": { "@id": "https://omitnomis.github.io/ShareSansarScraper/stock.html#breadcrumb" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://omitnomis.github.io/ShareSansarScraper/stock.html#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://omitnomis.github.io/ShareSansarScraper/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Charts",
+              "item": "https://omitnomis.github.io/ShareSansarScraper/stock.html"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">N</span>
+          <span>NEPSE<span class="brand-slash">//</span>ARCHIVE</span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="nav-links">
+          <span></span>
+        </button>
+        <nav aria-label="Main navigation">
+          <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="download.html">Download</a></li>
+            <li><a href="preview.html">Preview</a></li>
+            <li>
+              <a href="stock.html" class="active" aria-current="page">Charts</a>
+            </li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="wrap">
+      <section class="page-head" aria-labelledby="page-heading">
+        <span class="kicker">Chart a stock</span>
+        <h1 id="page-heading">Price charts</h1>
+        <p>
+          Pick a symbol to chart its full history &mdash; add a second to
+          compare them, normalized side by side.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="chart-section-heading">
+        <h2 id="chart-section-heading" class="visually-hidden">Stock chart</h2>
+
+        <div class="chart-controls">
+          <div class="chart-pickers">
+            <div class="input-group">
+              <img src="assets/icons/search.svg" alt="" class="icon" />
+              <input
+                type="text"
+                id="symbol-input"
+                list="symbol-list"
+                placeholder="Symbol e.g. NABIL"
+                autocomplete="off"
+                spellcheck="false" />
+            </div>
+            <div class="input-group">
+              <img src="assets/icons/search.svg" alt="" class="icon" />
+              <input
+                type="text"
+                id="compare-input"
+                list="symbol-list"
+                placeholder="Compare with… (optional)"
+                autocomplete="off"
+                spellcheck="false" />
+              <button
+                id="clear-compare"
+                class="clear-search-btn visually-hidden"
+                title="Clear comparison"
+                aria-label="Clear comparison">
+                <img src="assets/icons/close.svg" alt="" class="icon" />
+              </button>
+            </div>
+            <datalist id="symbol-list"></datalist>
+          </div>
+
+          <div class="chart-toggles">
+            <div class="seg" id="range-seg" role="group" aria-label="Time range">
+              <button type="button" data-range="1m">1M</button>
+              <button type="button" data-range="3m">3M</button>
+              <button type="button" data-range="6m">6M</button>
+              <button type="button" data-range="1y">1Y</button>
+              <button type="button" data-range="all" class="active">All</button>
+            </div>
+            <div class="seg" id="metric-seg" role="group" aria-label="Metric">
+              <button type="button" data-metric="price" class="active">
+                Price
+              </button>
+              <button type="button" data-metric="volume">Volume</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-meta" id="chart-meta" hidden></div>
+
+        <div class="chart-card">
+          <div id="chart-state" class="state-box visually-hidden">
+            <div class="spinner" role="status" aria-label="Loading"></div>
+            <p>Loading chart&hellip;</p>
+          </div>
+          <div class="chart-canvas-wrap">
+            <canvas id="price-chart" aria-label="Stock price chart"></canvas>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Data sourced from ShareSansar. Unofficial archive, not affiliated.</p>
+        <p>
+          Made with <span class="heart" aria-hidden="true">&#10084;</span
+          ><span class="sr-only">love</span> by
+          <a
+            href="https://github.com/OmitNomis"
+            target="_blank"
+            rel="noopener noreferrer"
+            >OmitNomis</a
+          >
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/stock.js"></script>
+  </body>
+</html>

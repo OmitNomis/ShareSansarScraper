@@ -1,7 +1,10 @@
 // Landing page: live "top movers" ticker + headline stats, all from the
 // real archive (newest CSV + the file list).
 
-document.addEventListener("DOMContentLoaded", initHome);
+document.addEventListener("DOMContentLoaded", () => {
+  initHome();
+  renderRecap();
+});
 
 const setText = (id, value) => {
   const el = document.getElementById(id);
@@ -106,4 +109,88 @@ function tickerFallback() {
     track.innerHTML =
       '<span class="ticker-item">Latest session data unavailable right now &mdash; try the Preview page.</span>';
   }
+}
+
+// ----------------------------- Market recap -----------------------------
+// Pre-computed by build_site_data.py, so the page just renders it.
+
+const fmtInt = (n) => new Intl.NumberFormat("en").format(n);
+const fmtCompact = (n) =>
+  new Intl.NumberFormat("en", {
+    notation: "compact",
+    maximumFractionDigits: 2,
+  }).format(n);
+
+async function renderRecap() {
+  const dateEl = document.getElementById("recap-date");
+  const tilesEl = document.getElementById("recap-tiles");
+  const moversEl = document.getElementById("recap-movers");
+  if (!tilesEl || !moversEl) return;
+
+  try {
+    const resp = await fetch("api/recap/latest.json");
+    if (!resp.ok) throw new Error(`recap HTTP ${resp.status}`);
+    const r = await resp.json();
+
+    if (dateEl) {
+      dateEl.textContent = `${window.NEPSE.formatArchiveDate(r.date)} · ${fmtInt(
+        r.symbols
+      )} symbols traded`;
+    }
+
+    const tiles = [
+      { label: "Advances", value: fmtInt(r.advances), cls: "up" },
+      { label: "Declines", value: fmtInt(r.declines), cls: "down" },
+      { label: "Unchanged", value: fmtInt(r.unchanged), cls: "" },
+      { label: "Turnover", value: `Rs ${fmtCompact(r.totalTurnover)}`, cls: "" },
+      { label: "Transactions", value: fmtInt(r.totalTransactions), cls: "" },
+    ];
+    tilesEl.innerHTML = tiles
+      .map(
+        (t) => `
+        <div class="recap-tile ${t.cls}">
+          <div class="recap-tile-num">${t.value}</div>
+          <div class="recap-tile-label">${t.label}</div>
+        </div>`
+      )
+      .join("");
+
+    const summaryEl = document.getElementById("recap-summary");
+    if (summaryEl && r.headline) {
+      summaryEl.textContent = r.headline;
+      summaryEl.hidden = false;
+    }
+
+    moversEl.innerHTML =
+      moverCard("Top gainers", r.topGainers) +
+      moverCard("Top losers", r.topLosers);
+  } catch (error) {
+    console.error("Recap render failed:", error);
+    const section = document.getElementById("recap");
+    if (section) section.hidden = true;
+  }
+}
+
+function moverCard(title, movers) {
+  const rows = (movers || [])
+    .map((m) => {
+      const cls = m.diffPct > 0 ? "up" : m.diffPct < 0 ? "down" : "";
+      const arrow = m.diffPct > 0 ? "▲" : m.diffPct < 0 ? "▼" : "—";
+      const sign = m.diffPct > 0 ? "+" : "";
+      const ltp = m.ltp == null ? "" : `Rs ${fmtInt(m.ltp)}`;
+      return `<li>
+        <a class="mover-sym" href="stock.html?symbol=${encodeURIComponent(
+          m.symbol
+        )}">${escapeHtml(m.symbol)}</a>
+        <span class="mover-ltp">${ltp}</span>
+        <span class="mover-chg ${cls}">${arrow} ${sign}${m.diffPct.toFixed(
+        2
+      )}%</span>
+      </li>`;
+    })
+    .join("");
+  return `<article class="card mover-card">
+    <h3 class="mover-title">${escapeHtml(title)}</h3>
+    <ol class="mover-list">${rows}</ol>
+  </article>`;
 }

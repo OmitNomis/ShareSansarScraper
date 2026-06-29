@@ -162,6 +162,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="download.html">Download</a></li>
             <li><a href="preview.html">Preview</a></li>
+            <li><a href="stock.html">Charts</a></li>
             <li>
               <a href="about.html" class="active" aria-current="page">About</a>
             </li>
@@ -226,6 +227,42 @@
             </ul>
           </article>
         </div>
+      </section>
+
+      <section class="section" aria-labelledby="api-heading">
+        <div class="section-head">
+          <span class="kicker">For developers</span>
+          <h2 id="api-heading">Free JSON API</h2>
+          <p>
+            Alongside the CSVs, every trading day is also published as small JSON
+            files &mdash; no auth, no rate limits. Fetch them straight into your
+            own project.
+          </p>
+        </div>
+        <article class="card content-card">
+          <ul>
+            <li>
+              <code>api/meta.json</code> &mdash; archive stats (last updated,
+              trading days, symbols)
+            </li>
+            <li><code>api/symbols.json</code> &mdash; every symbol, sorted</li>
+            <li>
+              <code>api/latest.json</code> &mdash; the most recent full session
+            </li>
+            <li>
+              <code>api/history/{SYMBOL}.json</code> &mdash; one symbol's entire
+              price history
+            </li>
+            <li>
+              <code>api/recap/latest.json</code> &mdash; daily gainers, losers
+              &amp; market breadth
+            </li>
+          </ul>
+          <p>
+            Full manifest:
+            <a href="api/index.json">api/index.json</a>.
+          </p>
+        </article>
       </section>
 
       <section class="cta" aria-labelledby="cta-heading">
