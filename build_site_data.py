@@ -21,6 +21,7 @@ by position, and falls back to Close when LTP is absent.
 import csv
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 
@@ -121,6 +122,17 @@ def write_json(path, payload):
 
 def iso(date_key):
     return date_key.replace("_", "-")
+
+
+def history_filename(symbol):
+    """Safe filename for a per-symbol history file.
+
+    Some NEPSE tickers contain "/" (e.g. GBD80/81, NMBD89/90), which would
+    otherwise be treated as a path separator. The real symbol is preserved
+    inside the JSON; only the filename is sanitized. stock.js applies the same
+    rule to build the fetch URL.
+    """
+    return re.sub(r"[\\/]", "_", symbol) + ".json"
 
 
 def build_recap(date_key, rows):
@@ -224,7 +236,7 @@ def main():
     for sym, by_date in history.items():
         ordered = [by_date[d] for d in sorted(by_date)]
         write_json(
-            os.path.join(HISTORY_DIR, f"{sym}.json"),
+            os.path.join(HISTORY_DIR, history_filename(sym)),
             {"symbol": sym, "cols": HISTORY_COLS, "rows": ordered},
         )
 
