@@ -90,9 +90,17 @@ function defaultSymbol() {
 }
 
 // --------------------------- data plumbing ---------------------------
+// Mirror build_site_data.history_filename: tickers like "GBD80/81" are stored
+// with the slash replaced so it isn't read as a path separator.
+function historyFile(symbol) {
+  return symbol.replace(/[\\/]/g, "_");
+}
+
 async function fetchHistory(symbol) {
   if (state.cache.has(symbol)) return state.cache.get(symbol);
-  const resp = await fetch(`api/history/${encodeURIComponent(symbol)}.json`);
+  const resp = await fetch(
+    `api/history/${encodeURIComponent(historyFile(symbol))}.json`
+  );
   if (!resp.ok) throw new Error(`history HTTP ${resp.status}`);
   const data = await resp.json();
   state.cache.set(symbol, data);
