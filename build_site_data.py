@@ -25,6 +25,8 @@ import re
 import sys
 from datetime import datetime, timezone
 
+import site_pages
+
 DATA_DIR = os.path.join("docs", "Data")
 API_DIR = os.path.join("docs", "api")
 HISTORY_DIR = os.path.join(API_DIR, "history")
@@ -233,12 +235,17 @@ def main():
             ]
 
     # --- per-symbol history (compact columnar) ---
+    ordered_by_symbol = {}
     for sym, by_date in history.items():
         ordered = [by_date[d] for d in sorted(by_date)]
+        ordered_by_symbol[sym] = ordered
         write_json(
             os.path.join(HISTORY_DIR, history_filename(sym)),
             {"symbol": sym, "cols": HISTORY_COLS, "rows": ordered},
         )
+
+    # --- static chart pages + sitemap (for search engines) ---
+    pages = site_pages.build(ordered_by_symbol, HISTORY_COLS, iso(dates[-1]))
 
     # --- latest session ---
     write_json(
@@ -268,7 +275,7 @@ def main():
 
     print(
         f"Built docs/api: {len(dates)} sessions, {len(symbols_sorted)} symbols, "
-        f"latest {iso(dates[-1])}."
+        f"latest {iso(dates[-1])}; {pages} chart pages + sitemap."
     )
 
 
